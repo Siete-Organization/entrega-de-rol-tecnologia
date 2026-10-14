@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrega de rol · Tecnología</title>
+<meta name="description" content="Guía de incorporación al equipo AI &amp; Tech (Siete y Leaf): qué se hizo en cada proyecto entre el 01 y el 14/10/2026, qué falta para completarlo y dónde está cada cosa.">
+<style>
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface-2: #f0f0ec;
+  --text: #1c1d1f;
+  --muted: #5d6066;
+  --faint: #8a8d93;
+  --border: #e2e2dc;
+  --accent: #3b4fd8;
+  --accent-soft: #e9ecfd;
+  --red: #c4372b;     --red-soft: #fbe9e7;
+  --amber: #a86400;   --amber-soft: #fdf1dc;
+  --green: #1f7a4a;   --green-soft: #e3f4ea;
+  --blue: #1d5fb8;    --blue-soft: #e4eefb;
+  --violet: #6b3fc4;  --violet-soft: #efe8fb;
+  --gray-soft: #ececea;
+  --siete: #3b4fd8;
+  --leaf: #1f7a4a;
+  --shadow: 0 1px 2px rgba(20,20,30,.05), 0 2px 8px rgba(20,20,30,.04);
+  --radius: 10px;
+  --mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131416; --surface: #1b1c1f; --surface-2: #232428; --text: #e8e8e6; --muted: #a3a5aa; --faint: #7d8086;
+    --border: #2f3035; --accent: #8c9bff; --accent-soft: #252a4a;
+    --red: #ff8a7d; --red-soft: #3a1f1c; --amber: #f0b44c; --amber-soft: #372a14; --green: #6fd39b; --green-soft: #17301f;
+    --blue: #7fb2ff; --blue-soft: #18263b; --violet: #b99bff; --violet-soft: #2a2140; --gray-soft: #2a2b2f;
+    --siete: #8c9bff; --leaf: #6fd39b; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131416; --surface: #1b1c1f; --surface-2: #232428; --text: #e8e8e6; --muted: #a3a5aa; --faint: #7d8086;
+  --border: #2f3035; --accent: #8c9bff; --accent-soft: #252a4a;
+  --red: #ff8a7d; --red-soft: #3a1f1c; --amber: #f0b44c; --amber-soft: #372a14; --green: #6fd39b; --green-soft: #17301f;
+  --blue: #7fb2ff; --blue-soft: #18263b; --violet: #b99bff; --violet-soft: #2a2140; --gray-soft: #2a2b2f;
+  --siete: #8c9bff; --leaf: #6fd39b; --shadow: none;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, .mono { font-family: var(--mono); font-size: .86em; }
+code { background: var(--surface-2); padding: .08em .35em; border-radius: 4px; word-break: break-word; }
+h1, h2, h3, h4 { line-height: 1.25; margin: 0; }
+h2 { font-size: 1.45rem; margin: 0 0 .35rem; letter-spacing: -.01em; }
+h3 { font-size: 1.12rem; margin: 1.4rem 0 .5rem; }
+h4 { font-size: .95rem; margin: 1rem 0 .35rem; }
+p { margin: .45rem 0; }
+ul, ol { margin: .35rem 0; padding-left: 1.3rem; }
+li { margin: .18rem 0; }
+small, .muted { color: var(--muted); }
+
+/* layout */
+.layout { display: grid; grid-template-columns: 272px minmax(0, 1fr); min-height: 100vh; }
+.sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; border-right: 1px solid var(--border); background: var(--surface); padding: 20px 16px 28px; }
+.brand { font-weight: 700; font-size: .95rem; display: flex; align-items: center; gap: 8px; }
+.brand-dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--siete) 50%, var(--leaf) 50%); }
+.brand-sub { color: var(--muted); font-size: .8rem; margin: 2px 0 14px 18px; }
+.search { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font: inherit; font-size: .88rem; }
+.search:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+.search-hint { font-size: .74rem; color: var(--faint); margin: 4px 2px 12px; }
+.toc { list-style: none; padding: 0; margin: 0; font-size: .87rem; }
+.toc li { margin: 0; }
+.toc a { display: block; padding: 4px 8px; border-radius: 6px; color: var(--muted); }
+.toc a:hover { background: var(--surface-2); color: var(--text); text-decoration: none; }
+.toc a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.toc .sub a { padding-left: 22px; font-size: .83rem; }
+.side-tools { display: flex; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
+.btn { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 7px; padding: 5px 10px; font: inherit; font-size: .8rem; cursor: pointer; }
+.btn:hover { background: var(--surface-2); }
+main { padding: 32px 40px 80px; max-width: 1060px; }
+section { margin: 0 0 44px; }
+.section-lead { color: var(--muted); margin-bottom: 14px; }
+.mobile-nav { display: none; }
+
+/* cover */
+.cover { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 28px; box-shadow: var(--shadow); margin-bottom: 36px; }
+.cover .eyebrow { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+.cover h1 { font-size: 1.85rem; letter-spacing: -.02em; margin: 6px 0 4px; }
+.cover .lead { color: var(--muted); max-width: 70ch; }
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px 22px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+.meta div span { display: block; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); font-weight: 600; }
+.meta div b { font-weight: 600; }
+
+/* components */
+.pill { display: inline-flex; align-items: center; gap: 5px; font-size: .74rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; background: var(--gray-soft); color: var(--muted); }
+.pill.red { background: var(--red-soft); color: var(--red); }
+.pill.amber { background: var(--amber-soft); color: var(--amber); }
+.pill.green { background: var(--green-soft); color: var(--green); }
+.pill.blue { background: var(--blue-soft); color: var(--blue); }
+.pill.violet { background: var(--violet-soft); color: var(--violet); }
+.pill.siete { background: var(--accent-soft); color: var(--siete); }
+.pill.leaf { background: var(--green-soft); color: var(--leaf); }
+.callout { border: 1px solid var(--border); border-left: 4px solid var(--accent); background: var(--surface); border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+.callout.danger { border-left-color: var(--red); background: var(--red-soft); }
+.callout.warn { border-left-color: var(--amber); background: var(--amber-soft); }
+.callout.ok { border-left-color: var(--green); }
+.callout b:first-child { display: block; margin-bottom: 2px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.tile h4 { margin: 0 0 4px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 14px 0 6px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+.stat .n { font-size: 1.7rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.stat .l { font-size: .8rem; color: var(--muted); }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); margin: 10px 0; }
+table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: .74rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td .pill { margin: 1px 0; }
+
+.project { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin: 0 0 26px; overflow: hidden; }
+.project-head { padding: 18px 22px 14px; border-bottom: 1px solid var(--border); border-top: 4px solid var(--siete); }
+.project.leaf .project-head { border-top-color: var(--leaf); }
+.project-head h3 { margin: 0; font-size: 1.3rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.project-head .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.project-head p { color: var(--muted); margin: 8px 0 0; max-width: 80ch; }
+.project-body { padding: 6px 22px 18px; }
+.kv { display: grid; grid-template-columns: 170px 1fr; gap: 6px 16px; font-size: .9rem; margin: 10px 0; }
+.kv dt { color: var(--muted); font-weight: 600; font-size: .82rem; padding-top: 1px; }
+.kv dd { margin: 0; }
+.links { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
+.links a { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 4px 10px; border-radius: 7px; font-size: .82rem; }
+.links a:hover { border-color: var(--accent); text-decoration: none; color: var(--accent); }
+.links a .k { color: var(--faint); font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; font-weight: 700; }
+.links a.dead { opacity: .7; }
+details { border: 1px solid var(--border); border-radius: 8px; margin: 10px 0; background: var(--surface); }
+details > summary { cursor: pointer; padding: 9px 14px; font-weight: 600; font-size: .9rem; list-style: none; display: flex; align-items: center; gap: 8px; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "▸"; color: var(--faint); transition: transform .15s; }
+details[open] > summary::before { transform: rotate(90deg); }
+details > .inner { padding: 2px 16px 12px; border-top: 1px solid var(--border); }
+.tasks { list-style: none; padding: 0; margin: 6px 0; }
+.tasks li { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 6px 0; border-bottom: 1px dashed var(--border); font-size: .88rem; }
+.tasks li:last-child { border-bottom: 0; }
+.envs { font-family: var(--mono); font-size: .78rem; color: var(--muted); line-height: 1.8; }
+.steps { counter-reset: s; list-style: none; padding: 0; }
+.steps > li { counter-increment: s; position: relative; padding: 4px 0 4px 34px; }
+.steps > li::before { content: counter(s); position: absolute; left: 0; top: 5px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: .76rem; font-weight: 700; display: grid; place-items: center; }
+
+.hidden-by-filter { display: none !important; }
+mark { background: #ffe58a; color: inherit; padding: 0 1px; border-radius: 2px; }
+.footer { color: var(--faint); font-size: .8rem; border-top: 1px solid var(--border); padding-top: 16px; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .mobile-nav { display: block; position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 16px; }
+  .mobile-nav select { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font: inherit; }
+  main { padding: 20px 16px 60px; }
+  .cover { padding: 20px 18px; }
+  .cover h1 { font-size: 1.5rem; }
+  .kv { grid-template-columns: 1fr; gap: 2px; }
+  .kv dd { margin-bottom: 8px; }
+  .project-head, .project-body { padding-left: 16px; padding-right: 16px; }
+  .tasks li { grid-template-columns: 1fr; gap: 2px; }
+}
+@media print {
+  .sidebar, .mobile-nav, .side-tools, .search { display: none !important; }
+  .layout { display: block; }
+  main { padding: 0; max-width: none; }
+  body { background: #fff; font-size: 11pt; }
+  .project, .cover, .tile, .stat { box-shadow: none; break-inside: avoid-page; }
+  details > .inner { display: block !important; }
+  a { color: inherit; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .75em; color: #555; word-break: break-all; }
+  .links a::after { content: none; }
+  section { break-before: auto; }
+}
+</style>
+</head>
+<body>
+<div class="mobile-nav"><select id="mobileNav" aria-label="Ir a sección"></select></div>
+<div class="layout">
+<aside class="sidebar" aria-label="Índice">
+  <div class="brand"><span class="brand-dot"></span> Entrega de rol · AI &amp; Tech</div>
+  <div class="brand-sub">Siete · Leaf · al 14/10/2026</div>
+  <input id="q" class="search" type="search" placeholder="Filtrar enlaces, repos, herramientas…" aria-label="Filtrar">
+  <div class="search-hint" id="qHint">Filtra tablas y enlaces. Para buscar en todo el texto: Ctrl+F.</div>
+  <ul class="toc" id="toc">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#equipo">1. Cómo trabajamos</a></li>
+    <li><a href="#resumen">2. Proyectos de estos días</a></li>
+    <li class="sub"><a href="#p-soporte">AI Support Sync</a></li>
+    <li class="sub"><a href="#p-aisdr">AISDR</a></li>
+    <li class="sub"><a href="#p-marketing">Marketing AI Engine</a></li>
+    <li class="sub"><a href="#p-outply">Outply</a></li>
+    <li class="sub"><a href="#p-rm">Response Manager</a></li>
+    <li class="sub"><a href="#p-academy">Siete Academy</a></li>
+    <li class="sub"><a href="#p-auditor">AI Auditor (Leaf)</a></li>
+    <li class="sub"><a href="#p-consultor">AI Consultor (Leaf)</a></li>
+    <li class="sub"><a href="#p-n8n">Propuestas n8n (Leaf)</a></li>
+    <li><a href="#herramientas">3. Herramientas y consolas</a></li>
+    <li><a href="#personas">4. Personas</a></li>
+    <li><a href="#primeros-pasos">5. Primeros pasos</a></li>
+    <li><a href="#convenciones">6. Convenciones y glosario</a></li>
+  </ul>
+  <div class="side-tools">
+    <button class="btn" id="themeBtn" type="button">Tema</button>
+    <button class="btn" id="expandBtn" type="button">Expandir todo</button>
+    <button class="btn" type="button" onclick="window.print()">Imprimir / PDF</button>
+  </div>
+</aside>
+
+<main>
+
+<header class="cover" id="inicio">
+  <div class="eyebrow">Entrega de rol · Guía de incorporación</div>
+  <h1>Proyectos de AI &amp; Tech: qué hicimos y qué falta</h1>
+  <p class="lead">Te damos la bienvenida al equipo. Este documento te pone al día con los proyectos de Siete y Leaf que se trabajaron en las últimas dos semanas: qué es cada uno, qué hicimos, qué falta para completarlo y dónde encontrar el código, la app en producción y sus consolas. Las prioridades y las fechas viven en el <a href="https://tech.wearesiete.com/portfolio">tablero PM Tech</a>; acá está el contexto para que puedas tomar cada tema sin empezar de cero.</p>
+  <div class="meta">
+    <div><span>Entrega</span><b>Ilyra Rivas</b><br><small>GitHub <code>ilyra-dev</code></small></div>
+    <div><span>Recibe</span><b>Nuevo integrante del equipo</b><br><small>AI &amp; Tech · Siete y Leaf</small></div>
+    <div><span>Período cubierto</span><b>01/10 → 14/10/2026</b><br><small>Estado al 14/10/2026</small></div>
+    <div><span>Fuentes</span><b>GitHub y PM Tech</b><br><small>Commits, PRs y documentos de cada repo</small></div>
+  </div>
+</header>
+
+<section id="equipo">
+  <h2>1. Cómo trabajamos</h2>
+  <p class="section-lead">Lo mínimo para orientarte antes de abrir cualquier repo.</p>
+  <div class="grid2">
+    <div class="tile">
+      <h4>Dos empresas, un equipo</h4>
+      <p><b>Siete</b> es la agencia de prospección B2B: sus apps internas son AISDR, Outply, Response Manager, Marketing AI Engine y Siete Academy. <b>Leaf</b> es la consultora de certificaciones de sostenibilidad (EDGE, LEED, WELL…): sus herramientas son AI Consultor, AI Auditor y los flujos de n8n.</p>
+    </div>
+    <div class="tile">
+      <h4>Dónde está cada cosa</h4>
+      <ul>
+        <li><b>Tareas y prioridades:</b> <a href="https://tech.wearesiete.com/portfolio">PM Tech</a>.</li>
+        <li><b>Código:</b> <a href="https://github.com/Siete-Organization">Siete-Organization</a> y <a href="https://github.com/Leaf-Global">Leaf-Global</a> en GitHub.</li>
+        <li><b>Despliegue:</b> Coolify (<a href="https://coolify.wearesiete.com/projects">Siete</a> y <a href="https://coolify.leaflatam.com/projects">Leaf</a>).</li>
+        <li><b>Login de las apps:</b> Firebase Authentication, un proyecto por app.</li>
+      </ul>
+    </div>
+    <div class="tile">
+      <h4>Cómo sale algo a producción</h4>
+      <p>En casi todos los repos, un <b>push a <code>main</code> despliega</b> automáticamente en Coolify. Por eso los cambios van por rama y PR, con el CI en verde. Cada ficha dice cómo se despliega ese proyecto en particular.</p>
+    </div>
+    <div class="tile">
+      <h4>Cómo leer las fichas</h4>
+      <p>Todas tienen la misma estructura: <b>qué es</b>, <b>enlaces</b>, <b>qué hicimos</b> (01/10 → 14/10), <b>qué falta para completarlo</b> y <b>para arrancar</b> (stack, despliegue, cómo correrlo en local, cosas a saber y lecturas). El filtro de la barra lateral reduce enlaces y tablas a lo que escribas (<code>coolify</code>, <code>firebase</code>, <code>outply</code>…).</p>
+    </div>
+  </div>
+  <div class="callout"><b>Es una foto al 14/10/2026.</b>Puede haber commits posteriores. Ante la duda, la fuente de verdad es <code>main</code> en GitHub y el tablero PM Tech.</div>
+</section>
+
+<section id="resumen">
+  <h2>2. Proyectos trabajados estos días</h2>
+  <p class="section-lead">Nueve frentes con trabajo entre el 01 y el 14/10. Van en orden alfabético por empresa; el orden no indica prioridad.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Proyecto</th><th>Empresa</th><th>Qué es</th><th>Dónde quedó al 14/10</th></tr></thead>
+    <tbody>
+      <tr data-filter><td><a href="#p-soporte"><b>AI Support Sync</b></a></td><td><span class="pill siete">Siete</span></td><td>Chat de ayuda con IA dentro de las apps internas, que convierte cada reporte en una tarea de PM Tech</td><td>siete-soporte y PM Tech están en producción y el widget ya está en Marketing AI, pero el chat todavía no aparece en ninguna app: falta el registro DNS de <code>soporte</code> y conectar las apps desde el PM</td></tr>
+      <tr data-filter><td><a href="#p-aisdr"><b>AISDR</b></a></td><td><span class="pill siete">Siete</span></td><td>Prospección B2B automatizada que busca, valida y puntúa contactos y los empuja a las secuencias de Outply</td><td>En producción; main tiene #239, #240 y #241 (12–13/10). La rama de revalidación de la carga manual quedó sin PR y faltan flags por encender</td></tr>
+      <tr data-filter><td><a href="#p-marketing"><b>Marketing AI Engine</b></a></td><td><span class="pill siete">Siete</span><span class="pill leaf">Leaf</span></td><td>Herramienta interna de content marketing con IA, multiorganización (Siete y Leaf)</td><td>En producción, con los 28 PRs del #172 al #199 mergeados y sin PRs abiertos. Faltan el QA de PhotoCraft 2–4/5, que la diseñadora elija la dirección de imagen y el alcance para Leaf</td></tr>
+      <tr data-filter><td><a href="#p-outply"><b>Outply</b></a></td><td><span class="pill siete">Siete</span></td><td>Plataforma propia de cold email que reemplazó a Reply.io para Siete y sus clientes</td><td>En producción con main (#127, 13/10). El calentamiento está apagado desde el 09/10, la reserva justa falta encenderla y el manual se publicó el 14/10, pero aún falta el botón que lo abre</td></tr>
+      <tr data-filter><td><a href="#p-rm"><b>Unibox / Response Manager</b></a></td><td><span class="pill siete">Siete</span></td><td>Bandeja unificada de los buzones de los SDR, con clasificación y borradores por IA</td><td>En producción, con adjuntos y «responder a todos» en el borrador de IA. CASA: falta solo el 6.4.1 (el registro DNS comodín), a la espera de TAC. PRs #124, #123 y #63 abiertos</td></tr>
+      <tr data-filter><td><a href="#p-academy"><b>Siete Academy</b></a></td><td><span class="pill siete">Siete</span></td><td>LMS de Siete para formar SDR en cohortes híbridas</td><td>En producción. Desde el 09/10 la progresión no depende de fechas y el CI está en verde. Quedan dos decisiones de producto del PR #74, sin PRs abiertos</td></tr>
+      <tr data-filter><td><a href="#p-auditor"><b>AI Auditor</b></a></td><td><span class="pill leaf">Leaf</span></td><td>Pre-auditoría EDGE v3: documentación por medida, revisión con IA, rondas de revisión y reporte PDF</td><td>En producción desde el 13/10. El 14/10 sumó documentos en Drive, selección de obligatorias y confirmación de rondas. Falta activar Drive en Coolify y probar con usuarios</td></tr>
+      <tr data-filter><td><a href="#p-consultor"><b>AI Consultor</b></a></td><td><span class="pill leaf">Leaf</span></td><td>Genera los sustentos (cálculos y láminas DWG + PDF) de cada medida EDGE/LEED desde los planos del cliente</td><td>Ciclo completo con Drive en Windows y servicio Docker con API listo (14/10). Falta la prueba con usuario (marcado a mano) y conectar la Ops Platform</td></tr>
+      <tr data-filter><td><a href="#p-n8n"><b>Generación de Propuestas (n8n)</b></a></td><td><span class="pill leaf">Leaf</span></td><td>Arma la propuesta comercial y el resumen ejecutivo desde un deal de HubSpot con plantillas de Google Docs</td><td>Volvió a la biblioteca anterior el 14/10, con prueba de punta a punta OK. Faltan plantillas usables de BMS, FITWEL y AIS y el ajuste del 12.º pago en LEED</td></tr>
+    </tbody>
+  </table></div>
+
+<article class="project" id="p-soporte">
+  <div class="project-head">
+    <h3>AI Support Sync <small class="muted">(repo siete-soporte + «Soporte apps» en PM Tech + widget en cada app)</small></h3>
+    <div class="tags"><span class="pill siete">Siete</span><span class="pill">Desplegado, falta activar</span></div>
+    <p>Un chat de ayuda con IA embebido en las apps internas de Siete: AISDR, Response Manager (con UniBox), Outply y Marketing AI. Claude atiende a la persona con el manual técnico de su app. Lo que resuelve entra a PM Tech como tarea hecha; lo que no, entra como reporte en el proyecto de soporte de esa app, con responsable, plazo según la severidad y aviso por email al programador y al líder de soporte. Es un widget embebible, no un portal, y Academy queda fuera porque sus usuarios son externos.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://tech.wearesiete.com/projects/f93d3461-bba6-4f8c-a17e-2e11aa566736/resumen"><span class="k">PM</span>Proyecto AI Support Sync</a>
+      <a href="https://tech.wearesiete.com/support"><span class="k">PM</span>Soporte apps (/support)</a>
+      <a href="https://github.com/Siete-Organization/siete-soporte"><span class="k">Repo</span>siete-soporte</a>
+      <a href="https://github.com/Siete-Organization/project-manager-tech"><span class="k">Repo</span>project-manager-tech</a>
+      <a href="https://soporte.wearesiete.com/health"><span class="k">Prod</span>soporte.wearesiete.com (sin DNS desde el 14/10)</a>
+      <a href="https://coolify.wearesiete.com/projects"><span class="k">Deploy</span>Coolify Siete (proyecto «AI Support Sync»)</a>
+      <a href="https://github.com/Siete-Organization/siete-soporte/blob/main/HANDOFF_integracion_pm_2026-09-30.md"><span class="k">Doc</span>HANDOFF (leer «ESTADO AL 14/10»)</a>
+      <a href="https://github.com/Siete-Organization/siete-soporte/blob/main/docs/bugs-encontrados.md"><span class="k">Doc</span>Bugs encontrados (46 entradas)</a>
+      <a href="https://github.com/Siete-Organization/siete-soporte/blob/main/docs/integracion-apps.md"><span class="k">Doc</span>Integrar una app</a>
+      <a href="https://github.com/Siete-Organization/project-manager-tech/blob/main/docs/soporte.md"><span class="k">Doc</span>PM Tech: contrato con siete-soporte</a>
+      <a href="https://github.com/Siete-Organization/project-manager-tech/pull/1"><span class="k">PR</span>PM #1 (mergeado 14/10)</a>
+      <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/187"><span class="k">PR</span>Marketing #187 (mergeado 14/10)</a>
+      <a href="https://github.com/Siete-Organization/SDR-Response-Manager/pull/123"><span class="k">PR</span>Response Manager #123 (abierto)</a>
+      <a href="https://github.com/Siete-Organization/AI-SDR/pull/238"><span class="k">PR</span>AISDR #238 (cerrado sin merge)</a>
+      <a href="https://github.com/Siete-Organization/reply_v2/pull/112"><span class="k">PR</span>Outply #112 (cerrado sin merge)</a>
+    </div>
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>05/10 · siete-soporte en GitHub.</b> El servicio con el chat de Claude, que responde con el manual de la app y pregunta «¿Se resolvió?» o arma el borrador del reporte; el modo «sin asistente» cuando la IA no está disponible; el envío al PM con reintentos; el widget embebible; los manuales de las 4 apps y el Docker Compose para Coolify (<a href="https://github.com/Siete-Organization/siete-soporte/commit/273d7e3">273d7e3</a>, <a href="https://github.com/Siete-Organization/siete-soporte/commit/5423643">5423643</a>).</li>
+      <li><b>06/10 · Conexión de apps desde el PM.</b> Cada app se da de alta desde PM Tech sin tocar siete-soporte, los manuales pasan a la base y el widget <code>widget.v2.js</code> muestra el número <code>SOP-n</code> en «Mis reportes» (<a href="https://github.com/Siete-Organization/siete-soporte/commit/e30b375">e30b375</a>, <a href="https://github.com/Siete-Organization/siete-soporte/commit/647a0fb">647a0fb</a>).</li>
+      <li><b>05/10–06/10 · PM Tech, «Soporte apps» (Ilyra).</b> La sección <code>/support</code> con semáforo de severidad, tipo y plazo de 1 a 10 días, la vista por usuario, los avisos por email y la migración <code>0016</code>. También «Conectar app» (datos, manual obligatorio y un tour de instalación que pasa sola a «Conectada») y el arreglo de las notas de tarea que se veían vacías al reabrir el panel (<a href="https://github.com/Siete-Organization/project-manager-tech/pull/1">PR #1</a>).</li>
+      <li><b>14/10 · PM Tech, CI y despliegue (Ilyra).</b> Los jobs de backend y frontend quedaron en verde; en <code>main</code> fallaban los tres jobs desde el 01/10. Los arreglos: fechas sin hora tratadas como día del calendario, <code>psql</code> por host, <code>sqlalchemy&lt;2.1</code>, y el probe de Postgres de los tests ya no confunde un driver roto con «no hay base» (<a href="https://github.com/Siete-Organization/project-manager-tech/commit/4f07adb">4f07adb</a>, <a href="https://github.com/Siete-Organization/project-manager-tech/commit/388373b">388373b</a>). El PR #1 se mergeó (<a href="https://github.com/Siete-Organization/project-manager-tech/commit/5567dfc">5567dfc</a>), se desplegó por el webhook de Coolify y la migración <code>0016</code> aplicó. El job «dependencias» sigue en rojo (bug #43).</li>
+      <li><b>06/10–14/10 · Widget en las apps</b> (rama <code>feat/widget-de-soporte</code> en cada repo). El 13/10, AISDR #238 y Outply #112 se cerraron sin merge, con las ramas listas. El 14/10, en las 4 ramas, el botón quedó condicionado: aparece solo cuando la app está conectada (<a href="https://github.com/Siete-Organization/marketing-ai-engine/commit/618539c">618539c</a>, <a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/cd1baf5">cd1baf5</a>, <a href="https://github.com/Siete-Organization/AI-SDR/commit/104fbd5">104fbd5</a>, <a href="https://github.com/Siete-Organization/reply_v2/commit/e25f695">e25f695</a>). Ese día se mergeó Marketing <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/187">#187</a>, que ya está en producción.</li>
+      <li><b>14/10 · siete-soporte en producción.</b> Quedó desplegado en Coolify, con migraciones hasta <code>0004</code> y <code>/health</code> ok. Mientras el PM no esté conectado, o si rechaza el envío, los reportes esperan en cola en vez de perderse; solo un 422 es definitivo (<a href="https://github.com/Siete-Organization/siete-soporte/commit/2c1f4bd">2c1f4bd</a>). Se actualizaron el HANDOFF y los bugs (<a href="https://github.com/Siete-Organization/siete-soporte/commit/f22687a">f22687a</a>, <a href="https://github.com/Siete-Organization/siete-soporte/commit/71de843">71de843</a>). En el PM se cerraron las tareas hechas y se creó «Terminar la implementación», con el checklist.</li>
+    </ul>
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li>Devolverle la dirección a siete-soporte. El 14/10 se quitó el comodín <code>*.wearesiete.com</code> del DNS y <code>soporte.wearesiete.com</code> dejó de resolver, aunque el servicio sigue corriendo. Falta un registro propio <code>soporte</code> (bug #46, paso 0 del checklist). Para verificarlo, <code>/health</code> tiene que responder <code>{"status":"ok"}</code>.</li>
+      <li>Terminar la conexión entre PM Tech y siete-soporte en Coolify, y activar la IA del chat (pasos 1 a 3 del checklist enlazado en «ESTADO AL 14/10» del HANDOFF). Hasta entonces el chat funciona «sin asistente» y todo se convierte en reporte. Sigue abierta la tarea del tablero «Chat con Claude: prueba real con la API».</li>
+      <li>Conectar Marketing AI, la única app con el widget ya desplegado. Se hace en PM Tech → Soporte apps → Apps → «Conectar app», con el identificador <code>marketing-ai</code> (exactamente ese) y el manual <code>manuales/marketing-ai.md</code>. Después, elegir el líder de soporte (el HANDOFF propone a César Granda) y hacer una prueba de punta a punta: el reporte tiene que aparecer como <code>SOP-1</code>, con responsable y plazo, y tiene que llegar el email.</li>
+      <li>Response Manager: mergear <a href="https://github.com/Siete-Organization/SDR-Response-Manager/pull/123">#123</a> cuando lo apruebe quien lleva la verificación CASA de Google, porque el cambio toca la CSP.</li>
+      <li>AISDR y Outply: si sus dueños lo deciden, reabrir <a href="https://github.com/Siete-Organization/AI-SDR/pull/238">#238</a> y <a href="https://github.com/Siete-Organization/reply_v2/pull/112">#112</a> y conectarlas igual que Marketing AI. AISDR se mergea fuera de la franja de 09:00 a 12:00 (hora de Lima).</li>
+      <li>El piloto con usuarios reales para ajustar el prompt y los manuales (el plan original era hacerlo en AISDR), y el QA final.</li>
+      <li>PM Tech: poner en verde el job «dependencias» (avisos nuevos de librerías del frontend, bug #43), instalar desde <code>uv.lock</code> en el Dockerfile y el CI en vez de <code>pip</code> (bug #42) y acotar los locators de los e2e 8, 9 y 15, que fallan en <code>main</code> (bug #2).</li>
+    </ul>
+    <h4>Para arrancar</h4>
+    <dl class="kv">
+      <dt>Stack</dt><dd>siete-soporte: FastAPI 0.115, SQLAlchemy async (asyncpg), Alembic (migraciones <code>0001</code>–<code>0004</code>) y Postgres 16. Usa el SDK de Anthropic (por defecto <code>claude-sonnet-5-5</code>). El widget es JS plano con Shadow DOM (<code>static/widget.v2.js</code>), y el envío al PM usa un outbox con reintentos dentro del proceso. En PM Tech viven <code>app/modules/support/</code> y <code>web/src/features/support/</code>.</dd>
+      <dt>Despliegue</dt><dd>siete-soporte corre como Docker Compose en Coolify (proyecto «AI Support Sync»: servicio <code>soporte</code> + <code>postgres:16-alpine</code>). <code>entrypoint.sh</code> corre <code>alembic upgrade head</code> antes de arrancar y, si la migración falla, el contenedor no levanta. En PM Tech, un merge a <code>main</code> despliega por el webhook de Coolify («PM 21 Manager → Platform»). Cada app se despliega por su lado.</dd>
+      <dt>En local</dt><dd><code>uv venv &amp;&amp; uv pip install -r requirements-dev.txt</code>, ver <code>.env.example</code>, <code>python -m alembic upgrade head</code> y <code>python -m uvicorn app.main:app --port 8100</code>. Tests: <code>python -m pytest</code> (levanta un Postgres 16 embebido) y <code>npx playwright test</code> para el widget. En desarrollo, <code>/dev/demo/aisdr.html</code> (y <code>unibox</code>, <code>outply</code>) muestra el widget sobre maquetas de cada app.</dd>
+    </dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li><code>widget.vN.js</code> está congelado con SRI: cambiarlo exige publicar <code>widget.v(N+1).js</code> y abrir un PR en cada app.</li>
+      <li><code>.gitattributes</code> fuerza LF. Con CRLF, <code>entrypoint.sh</code> no arranca y el hash del widget cambia. Hay que tener cuidado al editar en Windows.</li>
+      <li>Si la app no está conectada o siete-soporte no responde, el botón no aparece y la app no muestra ningún error. Un «no veo el chat» casi siempre es de configuración o de DNS, no de código.</li>
+      <li>Al conectar una app, el identificador tiene que ser el que usa su widget: <code>marketing-ai</code>, <code>response-manager</code>, <code>aisdr</code> u <code>outply</code>.</li>
+      <li>Para volver atrás el PM con la migración <code>0016</code>, primero se corre <code>alembic downgrade -1</code> en el contenedor <code>api</code> y después se hace el rollback de la imagen. En el orden inverso, el contenedor no arranca.</li>
+      <li>Las secciones viejas del HANDOFF describen un esquema de conexión que ya no se usa: lo vigente es «ESTADO AL 14/10» y «ESTADO AL 06/10». El módulo <code>app/modules/feedback/</code> está vacío: la encuesta de satisfacción nunca se implementó.</li>
+    </ul></div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li><code>README.md</code>: API, outbox, configuración y cómo correrlo.</li>
+      <li><code>HANDOFF_integracion_pm_2026-09-30.md</code>: «ESTADO AL 14/10», «ESTADO AL 06/10» y «Decisiones tomadas».</li>
+      <li><code>docs/bugs-encontrados.md</code>: 46 entradas del PM, de siete-soporte y de las 4 apps, cada una con su estado.</li>
+      <li><code>docs/integracion-apps.md</code> y <code>docs/integracion/{aisdr,marketing-ai,outply,response-manager}.md</code>.</li>
+      <li><code>manuales/*.md</code>: lo que la IA sabe de cada app.</li>
+      <li>PM Tech, <code>docs/soporte.md</code>: el contrato entre siete-soporte y el PM.</li>
+      <li>Maquetas del widget: <code>demo/*.html</code> y <code>docs/mockups/</code>.</li>
+    </ul></div></details>
+  </div>
+</article>
+
+<article class="project" id="p-aisdr">
+  <div class="project-head">
+    <h3>AISDR <small class="muted">(repo AI-SDR)</small></h3>
+    <div class="tags"><span class="pill siete">Siete</span><span class="pill green">En producción</span></div>
+    <p>La prospección B2B automatizada de Siete. Busca contactos que encajan con el ICP de cada cliente, primero en la base de Siete y después en Apollo. Luego los valida con ZeroBounce, evalúa con IA si encajan y los empuja a las secuencias de Outply (o de Reply.io). También acepta cargas manuales por CSV. Lo usan los SDR de Siete.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://aisdr.wearesiete.com"><span class="k">Prod</span>aisdr.wearesiete.com</a>
+      <a href="https://github.com/Siete-Organization/AI-SDR"><span class="k">Repo</span>AI-SDR</a>
+      <a href="https://github.com/Siete-Organization/AI-SDR/blob/main/CLAUDE.md"><span class="k">Doc</span>CLAUDE.md (schema y flags)</a>
+      <a href="https://github.com/Siete-Organization/AI-SDR/blob/main/docs/documentation.md"><span class="k">Doc</span>docs/documentation.md</a>
+      <a href="https://github.com/Siete-Organization/AI-SDR/compare/main...fix/manual-upload-ttl-revalidacion"><span class="k">Rama</span>fix/manual-upload-ttl-revalidacion</a>
+      <a href="https://github.com/Siete-Organization/AI-SDR/pull/240"><span class="k">PR</span>#240 modo estricto</a>
+      <a href="https://github.com/Siete-Organization/AI-SDR/pull/239"><span class="k">PR</span>#239 rebotes</a>
+      <a href="https://coolify.wearesiete.com/project/cgssckkgokw0wgws0w00ok4w/environment/wk8so04gcogog840cs0ocg4k"><span class="k">Deploy</span>Coolify · AI SDR</a>
+      <a href="https://console.firebase.google.com/project/auth-siete/overview"><span class="k">Firebase</span>auth-siete</a>
+    </div>
+
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>Modo estricto del push (12/10, Ilyra).</b> Con <code>STRICT_PUSH_VALIDATION_GATE</code> encendido, los contactos de la base de Siete que llegan como «valid» sin haber pasado por ZeroBounce (<code>siete:valid</code>, <code>reply:valid</code>) se validan en ZeroBounce justo antes de empujarlos, en vez de rechazarse. Antes se rechazaban, y como eso era cerca del 80 % del flujo, el flag nunca se encendía. El motivo: en la semana del 06/10 al 09/10, el 75 % de los rebotes duros en Outply fueron direcciones que no existen. Cada contacto revalidado es una validación paga de ZeroBounce. Con el flag apagado no cambia nada (<a href="https://github.com/Siete-Organization/AI-SDR/pull/240">#240</a>).</li>
+      <li><b>Un correo que rebotó no se vuelve a contactar (09/10 → 13/10, Jaime).</b> La carga y su vista previa descartan los contactos con <code>times_bounced &gt; 0</code>. Además, una tarea horaria, <code>rebotes_outply</code>, lee <code>GET /analytics/bounces</code> de Outply y marca esos correos en <code>core.contacts_master</code>. Esto revierte la decisión del 21/09 de no mirar el rebote histórico (<a href="https://github.com/Siete-Organization/AI-SDR/pull/223">#223</a>) y acompaña al #119 de Outply (<a href="https://github.com/Siete-Organization/AI-SDR/pull/239">#239</a>).</li>
+      <li><b>Respaldo de IA (13/10, Jaime).</b> Si OpenAI falla o su circuit breaker está abierto, el mismo pedido se repite con Claude Haiku 5.5, y la respuesta vuelve con la forma de OpenAI. Las 10 llamadas de chat pasan por <code>providers/llm.py</code>. Los embeddings no tienen respaldo (<a href="https://github.com/Siete-Organization/AI-SDR/pull/241">#241</a>).</li>
+      <li><b>Revalidación en la carga manual (rama, 14/10, Ilyra).</b> La rama <a href="https://github.com/Siete-Organization/AI-SDR/compare/main...fix/manual-upload-ttl-revalidacion"><code>fix/manual-upload-ttl-revalidacion</code></a> se puso al día con main (<a href="https://github.com/Siete-Organization/AI-SDR/commit/a72417d">a72417d</a>), y el dedup por cliente quedó apagado por defecto (<a href="https://github.com/Siete-Organization/AI-SDR/commit/65666c5">65666c5</a>). Su PR, el <a href="https://github.com/Siete-Organization/AI-SDR/pull/234">#234</a>, se cerró sin fusionar el 13/10. Frente a main aporta tres cosas, contra las dos fugas de rebotes que se confirmaron el 25/09:
+        <ul>
+          <li>Un TTL de revalidación, siempre activo, en el worker de la carga manual y en su vista previa. Si un veredicto guardado tiene más de 90 días (cuando era «valid») o más de 30 (en otro caso), el contacto vuelve a pasar por ZeroBounce antes del push.</li>
+          <li>Un dedup duro por email a nivel cliente, detrás de <code>MANUAL_DEDUP_YA_EMITIDO</code> (apagado): no empuja un email que ya salió en otra campaña del mismo cliente.</li>
+          <li><code>docs/sql/rebotes_outply_cruce.sql</code>, el cruce que confirmó esas fugas, con pruebas en <code>test_cache_ttl_revalidacion.py</code> y <code>test_cooldown_unified.py</code>.</li>
+        </ul>
+      </li>
+      <li><b>Widget del chat de soporte (proyecto AI Support Sync, Ilyra).</b> La rama <a href="https://github.com/Siete-Organization/AI-SDR/tree/feat/widget-de-soporte"><code>feat/widget-de-soporte</code></a> trae el endpoint que pide el pase a siete-soporte y el botón. Su PR, el <a href="https://github.com/Siete-Organization/AI-SDR/pull/238">#238</a>, se cerró sin fusionar el 13/10. El 14/10 recibió un commit (<a href="https://github.com/Siete-Organization/AI-SDR/commit/104fbd5">104fbd5</a>): el botón solo aparece cuando la app está conectada a siete-soporte.</li>
+    </ul>
+
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li>Hay que abrir un PR nuevo desde <code>fix/manual-upload-ttl-revalidacion</code>, que pase el CI, y fusionarlo. El modo estricto del #240 no cubre la carga manual, que empuja por su propio camino (<code>manual_upload._step_reply_push</code>), así que la carga manual depende de esta rama.</li>
+      <li>Falta filtrar los rebotes por reputación. <code>listar_rebotes</code>, en <code>backend/app/providers/outply.py</code>, toma todos los rebotes de Outply, incluidos los que Outply marca con <code>por_reputacion</code> desde su #125. Esas direcciones existen, pero quedan con <code>times_bounced</code> y la carga las descarta para siempre. En un comentario del <a href="https://github.com/Siete-Organization/AI-SDR/pull/239">#239</a> están el filtro de una línea y su prueba, y no se aplicaron.</li>
+      <li>Hay flags que nacen apagados y quedan por encender, siguiendo el playbook de <code>CLAUDE.md</code> (aviso T-24h, T-0 y T+1h; para volver atrás, <code>=false</code> y reiniciar):
+        <ul>
+          <li><code>STRICT_PUSH_VALIDATION_GATE</code>: listo desde el #240.</li>
+          <li><code>OUTPLY_AUTO_PAIR_ENABLED</code>: cuando esté hecho el primer lote de emparejado manual.</li>
+          <li><code>SYNC_DEACTIVATE_CHURNED</code>: cuando la lista <code>stale</code> del sync se vea razonable varias veces seguidas.</li>
+          <li><code>DB_RETENTION_ENABLED</code>: después de un mes de <code>db_retention.run_dry()</code>.</li>
+          <li><code>MANUAL_DEDUP_YA_EMITIDO</code>: si entra la rama.</li>
+        </ul>
+        Los flags visibles para los SDR («User-facing» en la tabla) no se encienden de lunes a viernes de 09:00 a 12:00, hora de Lima.</li>
+      <li>Hay que abrir un PR nuevo desde <code>feat/widget-de-soporte</code>, porque el #238 está cerrado.</li>
+      <li>Falta unir con main la rama <code>feat/deploy-independiente</code>, de Jaime: es la versión que opera con Siete Ops y Outply 2.0, y va 48 commits por delante de main. El PR <a href="https://github.com/Siete-Organization/AI-SDR/pull/202">#202</a>, también de Jaime (destino de Outply por campaña), sigue abierto y en conflicto con main desde el 17/09.</li>
+    </ul>
+
+    <h4>Para arrancar</h4>
+    <dl class="kv">
+      <dt>Stack</dt><dd>Backend en FastAPI con SQLAlchemy 2 async y Alembic (Python 3.11), con Celery y Redis. Frontend en React 19, Vite 7, TanStack Query y shadcn/ui. Usa una base Postgres propia y la base de Siete (<code>core.contacts_master</code>, <code>companies_master</code>). Auth con Firebase. Para la IA usa OpenAI, con Claude Haiku de respaldo, y además Apollo y ZeroBounce.</dd>
+      <dt>Despliegue</dt><dd>Coolify, proyecto «AI SDR». El repo trae dos formas de desplegar: el <code>Dockerfile</code> raíz (todo en un contenedor con supervisord) y <code>docker-compose.yaml</code> (api, redis, workers por cola y beat por separado). <code>deploy/README.md</code> explica cómo pasar de una a otra. Las migraciones corren al arrancar, y si fallan, el contenedor arranca igual. El CI corre en cada PR a main.</dd>
+      <dt>En local</dt><dd>Seguir la sección «Setup local» de <code>README.md</code>: <code>pip install -e .</code> en <code>backend</code> y <code>npm install</code> en <code>frontend</code>. Luego levantar Redis, <code>uvicorn app.main:app --port 8000</code>, <code>npm run dev</code> y un worker de Celery. Variables: ver <code>.env.example</code>. Las pruebas arman el schema desde los modelos, como el CI, y necesitan Postgres 16 con <code>unaccent</code> y <code>pg_trgm</code>.</dd>
+    </dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li>Antes de elegir el ID de una migración, corre <code>alembic heads</code>. Los ID siguen de la a a la z y luego aa, ab…, y uno repetido deja dos cabezas y rompe el deploy.</li>
+      <li>La cadena de Alembic no construye la base desde cero (se corta en <code>88f31c6e8470</code>). Además, cuatro tablas las crea <code>backend/scripts/ensure_apollo_keys.py</code> en cada arranque: no les agregues migraciones. Por eso <code>alembic check</code> solo sirve como lo usa el CI.</li>
+      <li>Hay dos caminos hacia Outply: el push del pipeline (<code>workers/reply_push.py</code>) y el de la carga manual (<code>manual_upload._step_reply_push</code>). Un filtro que se agrega a uno no cubre el otro.</li>
+      <li>AISDR y Outply comparten <code>core.contacts_master</code>: Outply anota ahí los rebotes (#119 y #127 de Outply), y AISDR descarta en la carga lo que tiene <code>times_bounced &gt; 0</code>.</li>
+      <li>Los errores van a la tabla <code>error_events</code> y a Slack (<code>#aisdr-alerts</code>).</li>
+      <li><code>README.md</code> y <code>docs/documentation.md</code> describen la versión que empujaba a Reply.io, así que parte está desactualizada.</li>
+    </ul></div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li><a href="https://github.com/Siete-Organization/AI-SDR/blob/main/CLAUDE.md"><code>CLAUDE.md</code></a>: el contrato de schema, la tabla de feature flags y el playbook para encenderlos.</li>
+      <li><a href="https://github.com/Siete-Organization/AI-SDR/blob/main/docs/documentation.md"><code>docs/documentation.md</code></a>: tablas, endpoints y pipeline.</li>
+      <li><a href="https://github.com/Siete-Organization/AI-SDR/blob/main/docs/pre-deploy-checklist.md"><code>docs/pre-deploy-checklist.md</code></a>.</li>
+      <li><a href="https://github.com/Siete-Organization/AI-SDR/blob/main/docs/INCIDENT_2026-04-13_zombie_to_replyio_403.md"><code>INCIDENT_2026-04-13</code></a>, <a href="https://github.com/Siete-Organization/AI-SDR/blob/main/docs/INCIDENT_2026-05-07_FIXES.md"><code>INCIDENT_2026-05-07</code></a> e <a href="https://github.com/Siete-Organization/AI-SDR/blob/main/docs/INCIDENT_2026-06-01_postgres_recovery.md"><code>INCIDENT_2026-06-01</code></a>: los incidentes de abril, mayo y junio.</li>
+      <li><a href="https://github.com/Siete-Organization/AI-SDR/blob/main/deploy/README.md"><code>deploy/README.md</code></a>: el paso de un contenedor a servicios separados.</li>
+    </ul></div></details>
+  </div>
+</article>
+
+<article class="project" id="p-marketing">
+  <div class="project-head">
+    <h3>Marketing AI Engine <small class="muted">(repo marketing-ai-engine) + Marketing Platform (Leaf)</small></h3>
+    <div class="tags"><span class="pill siete">Siete</span><span class="pill leaf">Leaf</span><span class="pill green">En producción</span></div>
+    <p>La herramienta interna de content marketing con IA, multiorganización (hoy Siete y Leaf). Cubre el calendario editorial, el research, la generación de piezas (posts, carruseles, memes, casos de éxito, blog), las imágenes con el brand kit y plantillas SVG, la publicación por red y la analítica de GA4. Tiene dos roles: la Directora planifica y asigna, y la Diseñadora genera y ajusta. «Marketing Platform» se creó en el PM para Leaf el 13/10: es el mismo motor y todavía no tiene tareas.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://tech.wearesiete.com/projects/a1526b8e-76f4-42bc-bc75-a89835180d3b/tareas"><span class="k">PM</span>Tareas (Siete)</a>
+      <a href="https://tech.wearesiete.com/projects/b6de5da6-ca8e-4943-a314-814ce85076e4/resumen"><span class="k">PM</span>Marketing Platform (Leaf)</a>
+      <a href="https://github.com/Siete-Organization/marketing-ai-engine"><span class="k">Repo</span>marketing-ai-engine</a>
+      <a href="https://marketing-ai.wearesiete.com"><span class="k">Prod</span>marketing-ai.wearesiete.com</a>
+      <a href="https://marketing-ai.wearesiete.com/api/health"><span class="k">Health</span>/api/health</a>
+      <a href="https://coolify.wearesiete.com/project/be6ffg0uknilfuwgzons4pdd/environment/h10mlnmqn8ocjjbq8mew4ebo"><span class="k">Deploy</span>Coolify · Marketing AI Engine</a>
+      <a href="https://github.com/Siete-Organization/marketing-ai-engine/blob/main/docs/GUIA_DE_USO.md"><span class="k">Doc</span>Guía de uso</a>
+      <a href="https://github.com/Siete-Organization/marketing-ai-engine/blob/main/docs/proposals/async-workers-architecture.md"><span class="k">Doc</span>Worker arq y capacidad</a>
+      <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/178"><span class="k">PR</span>#178 comparador A/B/C</a>
+      <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/197"><span class="k">PR</span>#197 capas SVG/PSD</a>
+      <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/199"><span class="k">PR</span>#199 rechazos de OpenAI en el log</a>
+    </div>
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>Calidad de imagen (01/10–06/10).</b> Comparador A/B/C, que muestra tres versiones de la misma pieza lado a lado sin modificarla: A es el camino actual, B agrega dirección de arte y C es la composición de marca, donde el modelo dibuja solo la imagen y el texto y el logo se componen con las tipografías de la marca (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/178">#178</a>, <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/179">#179</a>, 01/10). Además: el 4:5 se dibuja en su proporción real y el contenedor ya tiene la tipografía Inter (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/180">#180</a>), y el caso de éxito dibuja solo el inicio de cada campo (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/181">#181</a>), ambos del 05/10. También un control automático de calidad: un modelo de visión lee la imagen y la compara con el copy (proporción, copy presente y exacto, tildes, cifras inventadas, texto sobrante). Es consultivo, no bloquea (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/183">#183</a>, <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/186">#186</a>, 05–06/10).</li>
+      <li><b>Opciones y formatos (06/10).</b> «Generar 3 opciones» hace tres renders en paralelo, los ordena por defectos y elige una persona (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/191">#191</a>). «Adaptar a todos los formatos» recompone la imagen aprobada en 1:1, 4:5, 1,91:1 y 9:16, y cada red usa su formato preferido (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/192">#192</a>).</li>
+      <li><b>Contenido multi-red y flujo de la pieza (01/10–05/10).</b> R1a: una pieza tiene un destino por red, cada uno con su texto, contador de caracteres, vista previa del corte del feed y archivo propio (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/184">#184</a>). R1b: se publica desde cada destino; LinkedIn sale por API con tope de 3.000 caracteres y las demás redes con «Descargar archivo» y «Marcar como publicado» (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/185">#185</a>), ambos del 05/10. LinkedIn publica el caption y los hashtags tal como se escribieron (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/177">#177</a>). El 01/10 también: R3b, el título y las propiedades arriba del arte (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/174">#174</a>); R4b, la columna «Planificadas» en el tablero (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/175">#175</a>); y R5, un responsable por pieza y un hilo de comentarios (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/176">#176</a>).</li>
+      <li><b>Brand kit (06/10 y 14/10).</b> El botón «Completar desde la web» de Configuración de marca propone colores, tipografías, logo y voz a partir del sitio del cliente (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/193">#193</a>). En Recursos de marca se suma OTF a las fuentes, y cada archivo se guarda con una extensión que su tipo admite (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/198">#198</a>, 14/10).</li>
+      <li><b>i18n (06/10).</b> Se tradujo el inglés que quedaba en seis pantallas y el guard de textos ahora es más estricto (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/188">#188</a>). Los campos de la pieza se muestran por su etiqueta y no por su clave interna (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/189">#189</a>). Las fechas y los números siguen el idioma de la app (<code>es-419</code> o <code>en-US</code>) y no el del navegador (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/190">#190</a>).</li>
+      <li><b>Analítica (30/09–01/10).</b> GA4 cuenta cada visita una sola vez: los totales del sitio se calculan en el servidor con un reporte sin la dimensión de página (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/172">#172</a>). R6: cada cifra se compara con el período anterior (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/173">#173</a>).</li>
+      <li><b>Logs (05/10 y 14/10).</b> Los GET que siguen pendientes a los 15 s y los timeouts del cliente quedan en «Registro de errores» como <code>slow-request</code> (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/182">#182</a>). Cuando OpenAI rechaza un pedido de imagen, su respuesta (estado, código e id del pedido) queda en el log del servidor y en «Registro de errores» (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/199">#199</a>, 14/10).</li>
+      <li><b>PhotoCraft/VectorCraft por capas y WebP (13/10).</b> 1/5: se rellena una capa de texto que está dentro de un grupo con el nombre del campo, como exporta Figma (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/194">#194</a>). 2–4/5: la composición C se guarda por capas y se descarga como «SVG editable» (texto vivo, cada texto con el nombre de su campo, que puede volver a entrar como plantilla) o como «PSD por capas», donde el texto va como píxeles (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/197">#197</a>). 5/5: «Subir versión final» acepta WebP, y la pieza guarda el archivo editable de la diseñadora (PSD, AI, SVG, VectorCraft o PhotoCraft, hasta 50 MB) (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/195">#195</a>).</li>
+    </ul>
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li>Hacer el QA en producción de PhotoCraft/VectorCraft 2, 3 y 4/5 (<a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/197">#197</a>). Hay que correr el comparador en una pieza <code>linkedin_visual_post</code> o <code>meme</code>, bajar el «SVG editable» y el «PSD por capas» de la versión C y abrirlos en las herramientas de la diseñadora. Las corridas anteriores a #197 no tienen capas. El 14/10 el comparador falló dos veces porque OpenAI rechazó los pedidos de imagen; desde #199, el motivo queda en «Registro de errores» (<code>/logs</code>).</li>
+      <li>Elegir con la diseñadora la dirección de imagen (A, B o C) a partir del comparador. Si elige C, hay que hacerla el camino por defecto de las imágenes con IA: hoy C solo existe dentro del comparador y solo para <code>linkedin_visual_post</code> y <code>meme</code>.</li>
+      <li>El cuelgue de la primera carga después de varios días sin uso: no se pudo reproducir y no hay arreglo. Desde #182 queda registro de cada GET lento; falta que vuelva a pasar y diagnosticarlo con esos datos.</li>
+      <li>Un control del tamaño mínimo del texto. La versión Historia 9:16 que genera «Adaptar a todos los formatos» sale con el texto chico y aun así pasa el control automático, porque <code>backend/services/quality_checks.py</code> no mira el tamaño.</li>
+      <li>R6b, el desglose de la analítica por red. Quedó fuera de R6 (#173) porque el endpoint de filas corta en 500 y sumar en el navegador perdería días. Hacen falta totales por red calculados en el servidor, como los del sitio (#172).</li>
+      <li>Definir el alcance para Leaf y cargarlo como tareas en «Marketing Platform». La app ya es multiorganización y Leaf ya tiene su espacio, con su propia propiedad de GA4.</li>
+    </ul>
+    <h4>Para arrancar</h4>
+    <dl class="kv">
+      <dt>Stack</dt><dd>El backend es FastAPI (Python 3.11) con SQLAlchemy sobre Postgres; en local usa SQLite en <code>data/</code> por defecto. El frontend es Next.js 16 con Tailwind 4. Tiene una cola arq sobre Redis y usa Playwright/Chromium para componer y renderizar. La IA es OpenAI (proveedor primario por defecto, imágenes con <code>gpt-image-2</code>) y Anthropic.</dd>
+      <dt>Despliegue</dt><dd>Coolify, en un solo contenedor (<code>Dockerfile</code> + <code>start.sh</code>), desde <code>main</code>: lo que se mergea en <code>main</code> llega a producción, como pasó con #197 y #187. El CI (<code>.github/workflows/ci.yml</code>) corre <code>compileall</code>, <code>pytest</code> y <code>next build</code> en cada PR y en cada push a <code>main</code>.</dd>
+      <dt>En local</dt><dd><code>pip install -r requirements.txt</code> y <code>playwright install chromium</code>; ver <code>.env.example</code>. Backend: <code>uvicorn backend.main:app --port 8000</code>. Frontend: <code>cd frontend &amp;&amp; npm install &amp;&amp; npm run dev</code> (Next hace proxy de <code>/api</code> a <code>localhost:8000</code>). Worker: <code>arq tools.worker.WorkerSettings</code> con un Redis local. Tests: <code>python -m pytest tests/ -q</code>.</dd>
+    </dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li>No usa Alembic. Al arrancar corre <code>create_all</code> y <code>ALTER</code>s idempotentes en <code>backend/database.py::run_migrations</code>, y el seed está en <code>backend/startup.py</code>. Un cambio de esquema va ahí, y conviene probarlo contra una copia de la base.</li>
+      <li>Todo corre en un solo contenedor: Next.js en <code>:3000</code> hace proxy de <code>/api</code> a uvicorn en <code>:8000</code>, y el worker arq corre supervisado en el mismo contenedor (<code>start.sh</code>). <code>/api/health</code> informa si el worker está consumiendo. Los archivos (renders, recursos, capas) van al volumen de disco del contenedor, no a la base.</li>
+      <li>El CI instala una lista de dependencias escrita a mano en <code>ci.yml</code>, no <code>requirements.txt</code>, así que una dependencia nueva va en los dos. Los tests con navegador real (capas de #197, brand kit de #193) se saltan en el CI: hay que correrlos en local.</li>
+      <li>Cada imagen generada es paga, y hay un límite por hora: 6 corridas del comparador, 6 de «Generar 3 opciones» y 4 de «Adaptar a todos los formatos».</li>
+      <li><code>BACKLOG.md</code> está desactualizado (último cambio el 01/09). Los ítems R1…R6 y PhotoCraft/VectorCraft x/5 viven en el tablero del PM.</li>
+      <li>El widget de AI Support Sync ya está en <code>main</code> (#187, 14/10), pero no aparece hasta conectar la app en PM Tech → Soporte apps. Ver la ficha de AI Support Sync.</li>
+    </ul></div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li><code>docs/GUIA_DE_USO.md</code>: roles, flujos y cómo cargar plantillas SVG.</li>
+      <li><code>docs/proposals/async-workers-architecture.md</code>: el worker arq y la capacidad del servidor.</li>
+      <li><code>MIGRATION_GUIDE.md</code>: la migración de Supabase/Vercel a Coolify.</li>
+      <li><code>CLAUDE.md</code>: el framework WAT (Workflows, Agents, Tools) con el que está organizado <code>tools/</code> y <code>workflows/</code>.</li>
+      <li>Las descripciones de los PRs <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/178">#178</a> (A/B/C), <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/183">#183</a> (control de calidad), <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/192">#192</a> (formatos) y <a href="https://github.com/Siete-Organization/marketing-ai-engine/pull/197">#197</a> (capas), que explican el porqué de cada decisión.</li>
+    </ul></div></details>
+  </div>
+</article>
+
+<article class="project" id="p-outply">
+  <div class="project-head">
+    <h3>Outply <small class="muted">(repo reply_v2) + tarea de «Bugs a Arreglar»</small></h3>
+    <div class="tags"><span class="pill siete">Siete</span><span class="pill green">En producción</span></div>
+    <p>La plataforma propia de cold email que reemplazó a Reply.io para Siete y sus clientes. Tiene un espacio por cliente, campañas y secuencias multicanal, bandejas Gmail, Outlook y SMTP, y un dosificador con topes por bandeja y por dominio. También detecta respuestas y rebotes, y tiene lista de supresión, cola de envíos y explorador. La usan los SDR y los admins de agencia, y recibe contactos desde el AI-SDR.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://tech.wearesiete.com/projects/968cc146-7bd5-4e77-94fe-44098d95af36/tareas"><span class="k">PM</span>Tareas Outply</a>
+      <a href="https://tech.wearesiete.com/projects/8a6cdbcb-2ad7-48bf-a0f5-1f6d9cad32c7/tareas"><span class="k">PM</span>Bugs a Arreglar</a>
+      <a href="https://outply.wearesiete.com"><span class="k">Prod</span>outply.wearesiete.com</a>
+      <a href="https://api.outply.wearesiete.com/docs"><span class="k">API</span>api.outply.wearesiete.com</a>
+      <a href="https://trk.wearesiete.com/health"><span class="k">Prod</span>trk.wearesiete.com (tracking)</a>
+      <a href="https://github.com/Siete-Organization/reply_v2"><span class="k">Repo</span>reply_v2</a>
+      <a href="https://github.com/Siete-Organization/reply_v2/blob/main/DECISIONES.md"><span class="k">Doc</span>DECISIONES.md</a>
+      <a href="https://github.com/Siete-Organization/reply_v2/blob/main/RUNBOOK.md"><span class="k">Doc</span>RUNBOOK.md</a>
+      <a href="https://siete-organization.github.io/outply-manual/"><span class="k">Manual</span>Manual de uso (ES · EN · PT)</a>
+      <a href="https://github.com/Siete-Organization/outply-manual"><span class="k">Repo</span>outply-manual</a>
+      <a href="https://coolify.wearesiete.com/project/toh6wvbnu7qore02b5goqtni/environment/jv19x4ej9vhb41scvr06zccq"><span class="k">Deploy</span>Coolify · Outply</a>
+      <a href="https://coolify.wearesiete.com/project/rqctctq9dsdm1humb832eez4/environment/hggdgnpgtkqznwppm7uz2u3i"><span class="k">Deploy</span>Coolify · Outply 2.0</a>
+      <a href="https://console.firebase.google.com/project/outply-siete/overview"><span class="k">Firebase</span>outply-siete</a>
+      <a href="https://console.cloud.google.com/home/dashboard?project=outply-siete"><span class="k">GCP</span>outply-siete</a>
+      <a href="https://siete.sentry.io/issues/?project=4512143184887808"><span class="k">Errores</span>Sentry · siete</a>
+    </div>
+
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>Calentamiento con Mailivery y su apagado.</b> Desde el 01/10 todas las bandejas activas calentaban con Mailivery, con pruebas de colocación (<a href="https://github.com/Siete-Organization/reply_v2/pull/101">#101</a>). Del 02/10 al 06/10 se corrigió lo que destaparon las primeras pasadas reales (<a href="https://github.com/Siete-Organization/reply_v2/pull/102">#102</a>, <a href="https://github.com/Siete-Organization/reply_v2/pull/104">#104</a>, <a href="https://github.com/Siete-Organization/reply_v2/pull/110">#110</a> y <a href="https://github.com/Siete-Organization/reply_v2/pull/111">#111</a>). El 09/10 se apagó (<a href="https://github.com/Siete-Organization/reply_v2/pull/123">#123</a>): la pasada diaria pausa en Mailivery todo lo de Outply y no da de alta nada. Las bandejas siguen conectadas para las pruebas de colocación. El motivo está en <code>DECISIONES.md</code> (09/10): Heatwave listó un dominio que calentaba y prospectaba a la vez, y SURBL y Sophos lo listaron después.</li>
+      <li><b>Frenos preventivos (09/10).</b> Espera de 300–450 s y texto plano en 13 dominios de riesgo (45 bandejas y 99 campañas), aplicados a mano y sin migración. Una banda, visible solo para los admins de agencia, explica qué se frenó y por qué, en ES, EN y PT (<a href="https://github.com/Siete-Organization/reply_v2/pull/124">#124</a>).</li>
+      <li><b>Dosificador y reserva justa.</b> 05/10, Jaime: una campaña que llega cuando las demás ya reservaron el día recupera su parte del cupo ese mismo día (<a href="https://github.com/Siete-Organization/reply_v2/pull/106">#106</a>). 07/10: reserva justa, en la que cada campaña reserva de los días siguientes como mucho su parte y la que llega empieza a enviar en una hora. Está detrás de un interruptor, apagado (<a href="https://github.com/Siete-Organization/reply_v2/pull/116">#116</a>). 09/10: la salida va al ritmo de la agenda y ya no acumula atraso, que era lo que disparaba la alerta <code>cola_atascada</code> (<a href="https://github.com/Siete-Organization/reply_v2/pull/120">#120</a>). Fuera de la ventana de su campaña no sale nada (<a href="https://github.com/Siete-Organization/reply_v2/pull/122">#122</a>). Además, el worker tiene un proceso de Celery solo para los envíos (<code>envios@</code>) y otro para el resto (<code>general@</code>) (<a href="https://github.com/Siete-Organization/reply_v2/pull/121">#121</a>).</li>
+      <li><b>Rebotes y reputación.</b> 07/10: una dirección que no existe detiene al contacto en vez de reintentarse sin fin (<a href="https://github.com/Siete-Organization/reply_v2/pull/118">#118</a>). 09/10, Jaime: todo rebote es definitivo, bloquea la dirección en todos los clientes y se anota en <code>core.contacts_master</code> para que el AI-SDR no la vuelva a cargar (<a href="https://github.com/Siete-Organization/reply_v2/pull/119">#119</a>). Por eso se cerró sin fusionar el <a href="https://github.com/Siete-Organization/reply_v2/pull/117">#117</a>. 12/10: un rechazo por la reputación de nuestro dominio (lista negra o spam) ya no bloquea la dirección, y <code>GET /analytics/bounces</code> lo marca con <code>por_reputacion</code> (<a href="https://github.com/Siete-Organization/reply_v2/pull/125">#125</a>). 13/10: se agregó el script <code>desbloquear_por_reputacion.py</code>, que saca de la lista global lo que se bloqueó así entre el 09/10 y el 12/10. Ese día se midieron 17 direcciones (<a href="https://github.com/Siete-Organization/reply_v2/pull/127">#127</a>).</li>
+      <li><b>Bandejas que fallan.</b> 05/10: un login SMTP rechazado hace fallar el correo al primer intento, deja la bandeja en error y suelta su cola. Además, «Activar» comprueba el login de verdad (<a href="https://github.com/Siete-Organization/reply_v2/pull/105">#105</a>). 12/10: se hace lo mismo con una bandeja cuya cuenta de Google se borró (<code>invalid_grant</code>) (<a href="https://github.com/Siete-Organization/reply_v2/pull/126">#126</a>). 07/10: el listado de Bandejas ya no trae los bytes de la imagen de la firma, porque la pantalla no cargaba en el espacio Siete (<a href="https://github.com/Siete-Organization/reply_v2/pull/113">#113</a>).</li>
+      <li><b>Cola de envíos e interfaz.</b> 06/10, Jaime: nueva pestaña «Cola» en cada campaña (<a href="https://github.com/Siete-Organization/reply_v2/pull/114">#114</a>) y cola de envíos por campaña y general, donde se pueden meter contactos a hoy, reordenarlos o sacarlos de hoy (<a href="https://github.com/Siete-Organization/reply_v2/pull/115">#115</a>). 02/10, Jaime: menú agrupado y tablas que no se aprietan (<a href="https://github.com/Siete-Organization/reply_v2/pull/103">#103</a>). 02/10: en el Explorador, el país se separa de la dirección (<a href="https://github.com/Siete-Organization/reply_v2/pull/100">#100</a>). 05/10: Chrome ya no traduce encima de las traducciones de Outply (<a href="https://github.com/Siete-Organization/reply_v2/pull/107">#107</a>).</li>
+      <li><b>Manual y soporte (14/10).</b> El manual de uso, en español, inglés y portugués y con buscador, se publicó en GitHub Pages desde el repo <a href="https://github.com/Siete-Organization/outply-manual">outply-manual</a>. El widget del chat de soporte (proyecto AI Support Sync) sigue en la rama <a href="https://github.com/Siete-Organization/reply_v2/tree/feat/widget-de-soporte"><code>feat/widget-de-soporte</code></a>, que recibió un commit el 14/10 (<a href="https://github.com/Siete-Organization/reply_v2/commit/e25f695">e25f695</a>): el botón solo aparece cuando la app está conectada a siete-soporte.</li>
+    </ul>
+
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li>Falta el botón «?» de Outply que abre el manual (<code>?lang=es|en|pt</code>), que se describe en el README de outply-manual. Al 14/10 no está en ninguna rama de reply_v2.</li>
+      <li>Hay que abrir un PR nuevo desde <code>feat/widget-de-soporte</code>, porque su PR <a href="https://github.com/Siete-Organization/reply_v2/pull/112">#112</a> se cerró sin fusionar.</li>
+      <li>Para encender la reserva justa faltan tres pasos: probarla de punta a punta con la cola de envíos abierta, encenderla en el worker y revisar al día siguiente que las campañas nuevas envían desde la primera hora editable. Están en <a href="https://github.com/Siete-Organization/reply_v2/blob/main/openspec/changes/reserva-justa/tasks.md"><code>reserva-justa/tasks.md</code></a>, §4.</li>
+      <li>Quedan tareas abiertas en tres openspec. En <a href="https://github.com/Siete-Organization/reply_v2/blob/main/openspec/changes/sobrante-entre-campanas/tasks.md"><code>sobrante-entre-campanas</code></a> faltan dos pruebas (el tope por empresa y el presupuesto en la segunda vuelta) y actualizar la regla en <code>openspec/config.yaml</code>. En <a href="https://github.com/Siete-Organization/reply_v2/blob/main/openspec/changes/reparto-al-activar/tasks.md"><code>reparto-al-activar</code></a> hay que ver en los logs <code>reparto.recuperado</code> la primera vez que se active una campaña sobre bandejas llenas. En <a href="https://github.com/Siete-Organization/reply_v2/blob/main/openspec/changes/cola-de-la-campana/tasks.md"><code>cola-de-la-campana</code></a> falta probarla con Jaime contra datos reales.</li>
+      <li>El script del <a href="https://github.com/Siete-Organization/reply_v2/pull/127">#127</a> se corre en <code>outply-worker</code>, primero sin <code>--ejecutar</code>. En el repo no consta que se haya corrido: hay que confirmarlo.</li>
+      <li>Para cerrar la tarea de listas negras SURBL y Sophos («Bugs a Arreglar», y «Lógica de blacklist» en Outply), las causas ya están documentadas en <code>DECISIONES.md</code> (29/09 y 09/10): volumen, enlaces del propio dominio y calentamiento sintético. Falta pedir la baja en cada lista cuando el vigilante diario avise en Slack de que el dominio lleva 7 días limpios. Ese aviso dice dónde se pide.</li>
+      <li>El AI-SDR todavía cuenta como rebote los rechazos que Outply marca con <code>por_reputacion</code> (ver la <a href="#p-aisdr">ficha de AISDR</a>).</li>
+      <li>Falta unir con main la rama <a href="https://github.com/Siete-Organization/reply_v2/tree/deploy-independiente"><code>deploy-independiente</code></a>, de Jaime. Es «Outply 2.0», que opera desde Siete Ops con un solo compose y tiene su propio proyecto en Coolify. Va 32 commits por delante de main, le faltan los PR #125 a #127 y no tiene PR abierto.</li>
+    </ul>
+
+    <h4>Para arrancar</h4>
+    <dl class="kv">
+      <dt>Stack</dt><dd>Backend en FastAPI 0.115 con SQLAlchemy async y Alembic (Python 3.12), Celery 5.4 y Redis (colas <code>sends</code>, <code>replies</code>, <code>bounces</code> y <code>default</code>), y Postgres 16 (schema <code>outbound</code>). Frontend en React 19, Vite 6, TanStack Query y Tailwind 3, en ES, EN y PT. Auth con Firebase.</dd>
+      <dt>Despliegue</dt><dd>Coolify, proyecto «Outply»: <code>outply-api</code>, <code>outply-worker</code>, beat y <code>outply-frontend</code>, más Postgres y Redis. El backend usa una sola imagen y cada recurso toma su rol: la API corre <code>alembic upgrade head</code> al arrancar. Cada push a main despliega, después del CI (backend, qa-flows y frontend). Al 14/10, <code>/health</code> devuelve <code>2527a3c</code>, que es main (#127). Las variables del frontend se fijan en el build, así que si cambian hay que reconstruir.</dd>
+      <dt>En local</dt><dd>Seguir <code>RUNBOOK.md</code>, §1 (o §1a-bis en Windows). Postgres corre embebido con <code>scripts/local_pg.py</code>, sin Docker. Luego <code>alembic upgrade head</code> y <code>scripts/seed_admin.py</code>. La API va con <code>uvicorn app.main:app --port 8010</code> y el frontend con <code>VITE_PROXY_TARGET=http://localhost:8010 npm run dev</code>. Para ver los correos, el sink <code>scripts/smtp_sink.py</code>, y <code>scripts/dispatch_once.py</code> corre un ciclo del dosificador sin Celery. Variables: ver <code>backend/.env.example</code>.</dd>
+    </dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li>El Railway Pattern es obligatorio: los servicios devuelven <code>Ok</code>/<code>Err</code>, y están prohibidos el <code>except Exception</code> sin re-raise y el «log y seguir» (<code>CLAUDE.md</code>).</li>
+      <li>Cada cambio de comportamiento lleva una entrada nueva arriba en <code>DECISIONES.md</code>. Ahí están cómo volver a calentar y cómo quitar los frenos.</li>
+      <li>Los correos salen sin enlace de baja ni cabeceras <code>List-Unsubscribe</code>, por decisión de producto (24/09 y 29/09): para darse de baja, el contacto responde.</li>
+      <li>En Windows, <code>pgserver</code> solo arranca desde PowerShell, y <code>alembic.exe</code> falla en silencio bajo Git Bash por los acentos. Usa Alembic por la API de Python (RUNBOOK §1a-bis).</li>
+      <li>Sin la base levantada, las pruebas contra Postgres se saltan: un «passed, skipped» no es verde. <code>qa_flows.py</code> necesita el sink SMTP escuchando en el puerto 1025. El CI tiene un tope de errores de mypy (hoy 131) y solo falla si la cuenta sube.</li>
+      <li>El worker levanta dos procesos de Celery (<code>envios@</code> y <code>general@</code>, ver <code>docker-entrypoint.sh</code>), para que una importación o la lectura de respuestas no frenen los envíos.</li>
+    </ul></div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li><a href="https://github.com/Siete-Organization/reply_v2/blob/main/CLAUDE.md"><code>CLAUDE.md</code></a>: el Railway Pattern.</li>
+      <li><a href="https://github.com/Siete-Organization/reply_v2/blob/main/DECISIONES.md"><code>DECISIONES.md</code></a>: las decisiones de producto, con la más nueva arriba.</li>
+      <li><a href="https://github.com/Siete-Organization/reply_v2/blob/main/RUNBOOK.md"><code>RUNBOOK.md</code></a>: cómo levantarlo en local, el checklist de prueba y el CI. Está al 12/08, así que parte quedó vieja.</li>
+      <li><a href="https://github.com/Siete-Organization/reply_v2/blob/main/backend/CONTRACT.md"><code>backend/CONTRACT.md</code></a> y <a href="https://github.com/Siete-Organization/reply_v2/blob/main/frontend/FRONTEND_CONTRACT.md"><code>frontend/FRONTEND_CONTRACT.md</code></a>: reglas de módulos y de marca.</li>
+      <li><a href="https://github.com/Siete-Organization/reply_v2/blob/main/deliverability-logic.html"><code>deliverability-logic.html</code></a>: la doctrina de entregabilidad.</li>
+      <li><code>openspec/specs/</code> y <code>openspec/changes/</code>: los requisitos (REQ-…) del dosificador, los rebotes, las campañas y la cola.</li>
+      <li><a href="https://github.com/Siete-Organization/reply_v2/blob/main/backend/tests/informes/2026-09-11-carga-y-estres.md"><code>backend/tests/informes/2026-09-11-carga-y-estres.md</code></a>: la prueba de carga con 45.000 contactos.</li>
+    </ul></div></details>
+  </div>
+</article>
+
+<article class="project" id="p-rm">
+  <div class="project-head">
+    <h3>Unibox / Response Manager <small class="muted">(repo SDR-Response-Manager)</small></h3>
+    <div class="tags"><span class="pill siete">Siete</span><span class="pill green">En producción, CASA en curso</span></div>
+    <p>Junta en una bandeja web, la «UniBox», los buzones Gmail y Outlook de los SDR de Siete. Sincroniza cada 60 s, descarta lo que no sirve (auto-respuestas, rebotes, calentamiento) y clasifica con IA las respuestas de los prospectos. Para cada respuesta útil genera un borrador que el SDR revisa y envía desde la app o desde su buzón. Para conectar buzones de Google sin el tope de usuarios de una app no verificada, la app OAuth pasa por la verificación de Google, que exige el assessment CASA.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://tech.wearesiete.com/projects/7c7422f8-5bb1-4930-9cf1-0eaed792fb09/resumen"><span class="k">PM</span>Ficha</a>
+      <a href="https://response-manager.wearesiete.com"><span class="k">Prod</span>response-manager.wearesiete.com</a>
+      <a href="https://github.com/Siete-Organization/SDR-Response-Manager"><span class="k">Repo</span>SDR-Response-Manager</a>
+      <a href="https://coolify.wearesiete.com/project/t4s0ow0oogkww8ogc4ckw480"><span class="k">Deploy</span>Coolify · SDR Response Manager</a>
+      <a href="https://github.com/Siete-Organization/SDR-Response-Manager/blob/main/docs/casa/estado.md"><span class="k">Doc</span>docs/casa/estado.md</a>
+      <a href="https://github.com/Siete-Organization/SDR-Response-Manager/blob/main/docs/casa/6.4.1-inventario-dns.md"><span class="k">Doc</span>docs/casa/6.4.1-inventario-dns.md</a>
+      <a href="https://github.com/Siete-Organization/SDR-Response-Manager/pull/124"><span class="k">PR</span>#124 docs CASA</a>
+      <a href="https://github.com/Siete-Organization/SDR-Response-Manager/pull/123"><span class="k">PR</span>#123 widget de soporte</a>
+      <a href="https://github.com/Siete-Organization/SDR-Response-Manager/pull/63"><span class="k">PR</span>#63 whats-new</a>
+      <a href="https://github.com/Siete-Organization/SDR-Response-Manager/tree/deploy-independiente"><span class="k">Rama</span>deploy-independiente (Jaime)</a>
+      <a href="https://console.cloud.google.com/home/dashboard?project=nice-pen-461800-k3"><span class="k">GCP</span>nice-pen-461800-k3</a>
+      <a href="https://console.cloud.google.com/cloudpubsub/topic/list?project=nice-pen-461800-k3"><span class="k">GCP</span>Pub/Sub gmail-events</a>
+      <a href="https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade"><span class="k">Azure</span>App registrations</a>
+      <a href="https://leaf-6i.sentry.io/projects/javascript-react/"><span class="k">Errores</span>Sentry · leaf-6i</a>
+      <a href="https://dcc.godaddy.com/"><span class="k">DNS</span>GoDaddy (wearesiete.com)</a>
+    </div>
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>Adjuntos en el borrador de IA (06/10).</b> El borrador era el único de los cuatro flujos de envío sin adjuntos. Ahora los archivos se atan al borrador, así que también salen en un envío programado. Si el SDR agrega archivos, se descarta el borrador que ya se había empujado al buzón, porque saldría sin ellos. <a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/44aed2b">44aed2b</a></li>
+      <li><b>Outlook perdía los CC al responder (09/10).</b> El código llamaba siempre a <code>createReply</code> de Graph, que responde solo al remitente. Ahora usa <code>createReplyAll</code> cuando corresponde, tanto al enviar como en el borrador que se empuja al buzón. Gmail no tenía el problema. <a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/ee39052">ee39052</a></li>
+      <li><b>«Responder a todos» en el borrador de IA (09/10).</b> Antes respondía siempre a todos. Ahora el SDR elige, y la decisión se guarda en el borrador, así que vale para el envío inmediato y para el programado. También se corrigió que los adjuntos preparados quedaran pegados al cambiar de hilo. <a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/c05b34f">c05b34f</a></li>
+      <li><b>Assessment CASA, avance (09/10 y 13/10).</b> El 09/10 TAC explicó el resto del proceso: la carta LoV la envía TAC y Google sigue por el hilo de verificación (<a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/0b710f0">0b710f0</a>). El 13/10 terminó la revisión: 39 controles aprobados, 8 no aplicables y 1 fallido, el 6.4.1, por el registro DNS comodín. Ese mismo día se crearon los 23 registros DNS explícitos (paso 1 de 4) y se le preguntó a TAC si acepta un comodín acotado a <code>*.apps.wearesiete.com</code>. Los tres commits de docs del 13/10 quedaron en el <a href="https://github.com/Siete-Organization/SDR-Response-Manager/pull/124">PR #124</a>, abierto el 14/10.</li>
+      <li><b>Widget de soporte (PR #123, frente AI Support Sync; 06/10 y 14/10).</b> El backend le pide a <code>siete-soporte</code> un pase para el usuario logueado, y el botón de ayuda aparece abajo a la izquierda. La CSP suma <code>soporte.wearesiete.com</code>. El 14/10 se agregó que el botón solo aparece si la app está conectada a siete-soporte. <a href="https://github.com/Siete-Organization/SDR-Response-Manager/pull/123">PR #123</a></li>
+      <li><b>Jaime: Unibox orquestado por Siete Ops (06/10 → 09/10), en la rama <code>deploy-independiente</code>, sin PR.</b> Siete Ops pasa a decidir las cuentas, quién ve qué, la conexión de buzones y quién es admin. La bandeja trabaja por cuenta y, desde el 09/10, muestra «Todo» con las cuentas como filtro. Commits <a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/6e6bd09">6e6bd09</a>, <a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/c5ca1bf">c5ca1bf</a>, <a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/2797a2b">2797a2b</a> y <a href="https://github.com/Siete-Organization/SDR-Response-Manager/commit/4f39923">4f39923</a>. Las specs están en los changes de openspec <code>unibox-orquestado-por-siete-ops</code> y <code>bandeja-consolidada-por-instancias</code>.</li>
+    </ul>
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li><b>CASA 6.4.1:</b> esperar la respuesta de TAC sobre el comodín acotado y, con eso, hacer los pasos 2 a 4 de <code>docs/casa/6.4.1-inventario-dns.md</code>. Primero se cambia en Coolify el dominio de los hostnames autogenerados al subdominio acotado. Después se verifica que un deploy nuevo toma ese hostname. Recién entonces se quita el registro DNS comodín de la raíz. Por último, se sube la evidencia en la fila del 6.4.1 (lista de assessments → <i>Upload Evidence</i>). TAC todavía no confirmó si eso alcanza para disparar la revalidación.</li>
+      <li><b>Después de la carta LoV:</b> seguir el hilo de verificación de Google, por donde llegan los pasos siguientes. Recién ahí se borra el entorno efímero del escaneo (<code>dast-response-manager</code>, <code>rm-dast-db</code>, <code>rm-dast-redis</code>) y su registro DNS. Antes no conviene borrarlo, porque rehacerlo lleva sembrar la base y unos 40 minutos de escaneo.</li>
+      <li><b>PR #124:</b> mergearlo. Solo cambia <code>docs/casa/</code>, pero el merge a <code>main</code> dispara un deploy de producción.</li>
+      <li><b>PR #123:</b> acordarlo con quien lleve CASA antes de mergear. Suma un origen a la CSP, y la evidencia enviada cita la CSP anterior; el propio PR propone esperar la carta LoV. Para activarlo hay que conectar la app en PM Tech (Soporte apps) y completar en Coolify la configuración que indica el PR.</li>
+      <li><b>PR #63 (whats-new):</b> está abierto desde el 13/07 y hoy tiene conflictos con <code>main</code>. Falta decidir si se retoma o se cierra. Si se retoma, hay que rebasarlo y revisar su migración <code>cb0c1d2e3f4a</code> contra el head actual de Alembic.</li>
+      <li><b>Rama <code>deploy-independiente</code> (Jaime):</b> según su <code>tasks.md</code>, faltan la prueba integrada con Siete Ops en local (sección 9), el nombre del remitente consultado a Siete Ops (11.2 a 11.8), la elección de admins del lado de Siete Ops (12.6 y 12.7) y avisarle a Siete Ops (10.3). El mismo archivo dice que no se despliega a producción hasta que Jaime lo decida. Además, a la rama le faltan los cambios de octubre de <code>main</code> (adjuntos en el borrador, CC en Outlook, responder a todos).</li>
+      <li><b>openspec en <code>main</code>:</b> <code>cliente-antes-de-conectar-buzon</code> tiene 23 tareas sin marcar, aunque el PR #119 se mergeó el 17/08. Hay que reconciliarlo con el código y con el rediseño de <code>deploy-independiente</code>, que lleva la conexión de buzones a Siete Ops. En <code>deliverability-probe-send</code> falta la 6.3: entregarle al Dashboard el contrato del endpoint de envío de sonda.</li>
+    </ul>
+    <h4>Para arrancar</h4>
+    <dl class="kv">
+      <dt>Stack</dt><dd>FastAPI, SQLAlchemy async y Alembic. Un solo contenedor con supervisord corre Redis, uvicorn, dos workers de Celery (cola <code>sync</code> y colas <code>classify</code>/<code>draft</code>), beat y un watchdog de sync. Postgres 16 con pgvector, en el schema <code>ia_response_manager</code> de un servidor compartido. El front usa React 19, Vite 7, Zustand y Tailwind 4 con shadcn. La IA usa OpenAI, con Anthropic y Gemini configurables. Integraciones: Gmail (push por Pub/Sub) y Microsoft Graph.</dd>
+      <dt>Despliegue</dt><dd>Coolify, proyecto «SDR Response Manager»: cada push a <code>main</code> despliega producción. <code>start.sh</code> corre <code>alembic upgrade head</code> antes de arrancar; si la migración falla, el contenedor no levanta.</dd>
+      <dt>En local</dt><dd>Seguir <code>LOCAL_DEV.md</code>: poner <code>DB_SCHEMA=testing</code> en <code>.env</code> (nunca editar <code>backend/app/database.py</code>) y levantar Redis. En <code>backend/</code>, correr <code>uvicorn app.main:app --reload --port 8000</code> y el worker y el beat de Celery; en <code>frontend/</code>, <code>npm run dev</code>. Otra opción: <code>docker-compose.yml</code> levanta Postgres con pgvector, Redis, el backend y Celery. Variables: ver <code>.env.example</code>.</dd>
+    </dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li>Push o merge a <code>main</code> es deploy a producción: las apps de Coolify tienen auto-deploy sobre <code>main</code>. Para probar algo aislado, conviene apuntar un entorno aparte a una rama, como se hizo con el escaneo.</li>
+      <li>El envío inmediato y el programado comparten <code>execute_thread_send</code>, que lee del borrador los adjuntos y la opción de responder a todos. Si el SDR cambia esas opciones, se descarta el borrador ya empujado al buzón (<code>provider_draft_id</code>), porque enviarlo tal cual saldría distinto.</li>
+      <li>La URL síncrona de la base tiene que empezar con <code>postgresql+psycopg2://</code>. Con <code>postgresql://</code> pelado, el contenedor entra en crash loop, porque la imagen trae psycopg2. Además, cambiar la variable no reinicia nada: el cambio toma efecto en el deploy siguiente.</li>
+      <li>CI (<code>.github/workflows/test.yml</code>): el backend corre sobre SQLite, más un job que prueba la cadena de Alembic en un Postgres real. En el front, <code>tsc -b &amp;&amp; vite build</code> es el único control que caza identificadores mal escritos en archivos sin tests.</li>
+      <li><code>MERGE_DEBT.md</code> (abierto desde mayo): la fusión con UniBox dejó endpoints duplicados para admin (<code>/api/threads/*</code>, <code>/api/drafts/*</code>…) y para SDR (<code>/api/sdr/*</code>). Un arreglo en uno no llega solo al otro.</li>
+      <li>En <code>deploy-independiente</code>, la migración base solo corre sobre una base vacía y aborta si encuentra datos. Esa rama necesita un schema propio, distinto de <code>ia_response_manager</code>.</li>
+    </ul></div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li><code>README.md</code> (el pipeline y la UniBox) y <code>LOCAL_DEV.md</code>.</li>
+      <li><code>docs/casa/estado.md</code>: el estado del assessment. La versión del 13/10 está en el PR #124. También <code>docs/casa/6.4.1-inventario-dns.md</code>, con el plan en cuatro pasos.</li>
+      <li><code>workflows/email_sync.md</code>, <code>ai_classification.md</code>, <code>draft_generation.md</code> y <code>oauth_flow.md</code>, más <code>docs/bounces.md</code>.</li>
+      <li><code>MERGE_DEBT.md</code>. <code>ARCHITECTURE.md</code> y <code>MERGE_PLAN.md</code> describen el estado previo a la fusión con UniBox.</li>
+      <li>Handoffs: <code>HANDOFF_SIETE_ID_SYNC.md</code>, <code>HANDOFF_clientes_fusionados.md</code> y <code>HANDOFF_rm_envio_deliverability.md</code>.</li>
+      <li>En la rama <code>deploy-independiente</code>: <code>openspec/changes/unibox-orquestado-por-siete-ops/</code> (proposal, design, tasks y los handoffs para Siete Ops).</li>
+    </ul></div></details>
+  </div>
+</article>
+
+<article class="project" id="p-academy">
+  <div class="project-head">
+    <h3>Siete Academy <small class="muted">(repo siete-academy)</small></h3>
+    <div class="tags"><span class="pill siete">Siete</span><span class="pill green">En producción</span></div>
+    <p>El LMS propio de Siete para formar SDR en cohortes híbridas: contenido on-demand más sesiones en vivo. Cubre el ciclo completo: postulación pública con puntaje de IA, cohortes, módulos con video y lectura, pruebas con corrección del profesor, certificado verificable y un tablero de colocación de egresados. Lo usan alumnos externos, profesores, admins y reclutadores.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://siete-academy.wearesiete.com"><span class="k">Prod</span>siete-academy.wearesiete.com</a>
+      <a href="https://api-siete-academy.wearesiete.com/health"><span class="k">API</span>api-siete-academy · /health</a>
+      <a href="https://github.com/Siete-Organization/siete-academy"><span class="k">Repo</span>siete-academy</a>
+      <a href="https://coolify.wearesiete.com/project/k7psv6pmy8zaukg6gvzbks5y"><span class="k">Deploy</span>Coolify · Siete Academy</a>
+      <a href="https://console.firebase.google.com/project/auth-academy-staging/overview"><span class="k">Firebase</span>auth-academy-staging (el de prod)</a>
+      <a href="https://github.com/Siete-Organization/siete-academy/pull/74"><span class="k">PR</span>#74 progresión sin fechas</a>
+      <a href="https://github.com/Siete-Organization/siete-academy/pull/75"><span class="k">PR</span>#75 smoke test y CI</a>
+      <a href="https://github.com/Siete-Organization/siete-academy/blob/main/docs/ARQUITECTURA.md"><span class="k">Doc</span>docs/ARQUITECTURA.md</a>
+      <a href="https://github.com/Siete-Organization/siete-academy/blob/main/docs/MANUAL.md"><span class="k">Doc</span>docs/MANUAL.md</a>
+      <a href="https://github.com/Siete-Organization/siete-academy/blob/main/docs/DEPLOY_COOLIFY.md"><span class="k">Doc</span>docs/DEPLOY_COOLIFY.md</a>
+    </div>
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>La progresión ya no depende de fechas de plazo (09/10).</b> Antes, el módulo se cerraba al terminar la ventana de la cohorte más los días de gracia, y el alumno que necesitaba más tiempo se quedaba sin poder entregar. Ahora un módulo se abre cuando el anterior quedó resuelto, y una vez abierto no se vuelve a cerrar. <code>opens_at</code> y <code>closes_at</code> quedan como cronograma sugerido. Los días de gracia y la prórroga individual salieron de <code>/admin/progression</code>; sigue la excepción «ignorar el módulo anterior». Las entregas nuevas ya no se marcan como tardías. <a href="https://github.com/Siete-Organization/siete-academy/pull/74">PR #74</a></li>
+      <li><b>El dashboard del alumno ya no dice «Cerrado» por una fecha (09/10).</b> El estado sale del avance (Completado, Disponible o Bloqueado), y el rango de fechas aparece rotulado como «Sugerido:». En el mismo PR se actualizaron <code>docs/ARQUITECTURA.md</code> §4.16 y <code>docs/MANUAL.md</code>. <a href="https://github.com/Siete-Organization/siete-academy/commit/7459e2d">7459e2d</a></li>
+      <li><b>El smoke test de producción apuntaba a un host que no existe (09/10).</b> <code>tools/smoke_test_prod.py</code> usaba <code>api-academy.wearesiete.com</code>, que da 503. Ahora usa <code>api-siete-academy.wearesiete.com</code> y pasa los 5 chequeos. Se corrigió el mismo host viejo en el valor por defecto de <code>docker-compose.prod.yml</code>. <a href="https://github.com/Siete-Organization/siete-academy/commit/da3151e">da3151e</a></li>
+      <li><b>CI desbloqueado (09/10).</b> El job de backend caía por el límite de descargas anónimas de Docker Hub. Ahora la imagen de Postgres se trae del mirror <code>public.ecr.aws</code>. <a href="https://github.com/Siete-Organization/siete-academy/commit/8628a0f">8628a0f</a>, <a href="https://github.com/Siete-Organization/siete-academy/pull/75">PR #75</a></li>
+    </ul>
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li><b>Las dos decisiones que dejó el PR #74,</b> elegidas a lo conservador y a confirmar con el equipo de la Academy:
+        <ul>
+          <li>Qué prueba abre el módulo siguiente. Hoy es la Prueba del Módulo (<code>capa_2</code>); las micro-pruebas semanales cierran la lección, no el módulo.</li>
+          <li>Si alcanza con entregar o hay que aprobar. Hoy alcanza con entregar (<code>advance_on_submission</code>), siempre que la nota todavía pueda llegar a aprobar.</li>
+        </ul>
+        Si se elige lo otro, el cambio es chico y vive en <code>backend/app/modules/enrollment/gates.py</code>.</li>
+      <li><b>openspec <code>pdf-lecciones-lectura</code>:</b> quedan sin marcar dos tareas. Una es correr <code>backend/app/scripts/migrate_guias_a_lecciones.py</code> en staging y verificar que las guías aparecen en la secuencia (8.3). La otra es el recorrido completo en staging: abrir una guía, pasar todas las páginas y ver el módulo al 100% (10.2).</li>
+      <li><b>Poner al día la documentación de despliegue.</b> <code>docs/DEPLOY_COOLIFY.md</code> y <code>docs/ARQUITECTURA.md</code> describen <code>siete.com/academy</code> detrás de un Cloudflare Worker y el proyecto de Firebase <code>siete-academy</code>. Producción real corre en <code>siete-academy.wearesiete.com</code> y <code>api-siete-academy.wearesiete.com</code>, usa una instancia Postgres compartida con otras apps (un schema por app) y el proyecto de Firebase <code>auth-academy-staging</code>. <code>HANDOFF.md</code> y <code>MANUAL.md</code> todavía dicen que la Fase B (infra de producción) está pendiente.</li>
+    </ul>
+    <h4>Para arrancar</h4>
+    <dl class="kv">
+      <dt>Stack</dt><dd>El backend usa Python 3.12, FastAPI (monolito modular, un módulo por dominio en <code>backend/app/modules/</code>), SQLAlchemy 2, Alembic y Celery con Redis. La base es Postgres, schema <code>siete_academy</code>. El front usa React 18, Vite 5, TypeScript, Tailwind con shadcn y react-i18next (es, en y pt). La autenticación es Firebase Auth, con roles. Anthropic Claude puntúa las postulaciones y redacta borradores de feedback para el profesor.</dd>
+      <dt>Despliegue</dt><dd>Coolify, proyecto «Siete Academy». El repo trae <code>docker-compose.prod.yml</code> para Coolify (api, worker, frontend y redis; la base vive aparte). Según <code>docs/DEPLOY_COOLIFY.md</code> §0.1, Coolify <b>solo despliega con un push directo a <code>main</code></b>: un merge desde la UI de GitHub no lo dispara. El flujo es <code>git merge --ff-only &lt;rama&gt;</code> y <code>git push origin main</code>; si se mergeó desde la UI, hace falta un push vacío o «Redeploy» en Coolify. Después conviene correr <code>python tools/smoke_test_prod.py</code>.</dd>
+      <dt>En local</dt><dd><code>make demo</code> necesita Docker (para Postgres), <code>uv</code> y Node. Crea el entorno, resetea la base local, migra, siembra datos de demo y levanta el backend en <code>:8000</code> y el front en <code>:5173</code>. Se abre en <code>http://localhost:5173/academy/</code>, con un botón de entrada por rol (modo demo, solo en desarrollo). <code>make test</code> corre pytest, vitest y Playwright. Variables: ver <code>.env.example</code>.</dd>
+    </dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li>Producción usa el proyecto de Firebase <code>auth-academy-staging</code>, aunque se llame staging (verificado el 14/10 en el bundle). La configuración de Firebase del front va inlineada en el build (variables <code>VITE_*</code>): para cambiarla hay que reconstruir el frontend, no alcanza con redeployar.</li>
+      <li>La progresión se decide en un solo lugar, <code>backend/app/modules/enrollment/gates.py</code>, y <code>blocked_by</code> solo puede valer <code>prev_module</code>. <code>cohorts.grace_days</code> y <code>module_exceptions.submit_until</code> siguen en la base para no perder el histórico, pero ya no se usan: no hay que leerlas para decidir permisos.</li>
+      <li>El correo y Slack fallan en silencio a propósito. Sin SMTP configurado, el correo se loguea como <code>email.stubbed</code>; sin webhook de Slack, el aviso se loguea como <code>&lt;evento&gt;.stubbed</code>. Si algo «no llega», hay que buscar eso en los logs de <code>api</code> y <code>worker</code>.</li>
+      <li>Alembic es la única forma de cambiar el schema, también en local. <code>deploy/entrypoint-api.sh</code> corre <code>alembic upgrade head</code> y falla fuerte; el worker no migra. <code>make seed</code> y <code>make demo</code> resetean la base local.</li>
+      <li>El host de la API es <code>api-siete-academy</code>, no <code>api-academy</code>, que devuelve 503. Si el CI vuelve a caer en segundos con <code>toomanyrequests</code>, es el límite de Docker Hub: las imágenes de servicio tienen que venir de <code>public.ecr.aws</code>.</li>
+      <li><code>RUNBOOK_LOCAL.md</code> dice «sin Docker», pero <code>make db-up</code> levanta Postgres con <code>docker compose</code>.</li>
+    </ul></div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li><code>docs/ARQUITECTURA.md</code>: stack, módulos, modelo de datos y, en §4.16, las reglas de progresión (al día desde el 09/10).</li>
+      <li><code>docs/MANUAL.md</code> (proceso y recorridos por rol) y <code>docs/FLUJOGRAMAS.md</code>.</li>
+      <li><code>docs/DEPLOY_COOLIFY.md</code>: §0 (trampas de Coolify) y §12 (troubleshooting). Las secciones de routing están desactualizadas.</li>
+      <li><code>HANDOFF.md</code>: mapa de módulos y decisiones de diseño que no conviene revertir. El estado de las fases está viejo.</li>
+      <li><code>RUNBOOK_LOCAL.md</code> y <code>openspec/changes/pdf-lecciones-lectura/</code>.</li>
+      <li>La descripción del <a href="https://github.com/Siete-Organization/siete-academy/pull/74">PR #74</a>, con la regla nueva y las dos decisiones abiertas.</li>
+    </ul></div></details>
+  </div>
+</article>
+
+<article class="project leaf" id="p-auditor">
+  <div class="project-head">
+    <h3>AI Auditor <small class="muted">(repo leaf-auditor)</small></h3>
+    <div class="tags"><span class="pill leaf">Leaf</span><span class="pill green">En producción</span></div>
+    <p>Plataforma interna de Leaf para la pre-auditoría EDGE v3, con 63 medidas (27 obligatorias y 36 opcionales). Los consultores documentan cada medida con datos y documentos, Claude hace una pre-auditoría que señala errores e incoherencias, y los revisores aprueban por rondas y generan el reporte PDF en formato EDGE. No calcula puntajes: eso lo hace la app oficial de EDGE.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://tech.wearesiete.com/projects/94f1393f-c61c-4b35-be55-9de4741d04f6/tareas"><span class="k">PM</span>Tareas</a>
+      <a href="https://ai-auditor.leaflatam.com"><span class="k">Prod</span>ai-auditor.leaflatam.com</a>
+      <a href="https://github.com/Leaf-Global/leaf-auditor"><span class="k">Repo</span>leaf-auditor</a>
+      <a href="https://github.com/Leaf-Global/leaf-auditor/blob/main/README.md"><span class="k">Doc</span>README.md</a>
+      <a href="https://github.com/Leaf-Global/leaf-auditor/blob/main/DEPLOYMENT.md"><span class="k">Doc</span>DEPLOYMENT.md</a>
+      <a href="https://github.com/Leaf-Global/leaf-auditor/blob/main/FEEDBACK-BACKLOG.md"><span class="k">Doc</span>FEEDBACK-BACKLOG.md</a>
+      <a href="https://coolify.leaflatam.com/project/hc04cs8os0k0cw04ck4w88c8/environment/g8s0sckosg4wgg040s8s4gks/application/q804s4400skgw4wk000g8owc"><span class="k">Deploy</span>Coolify Leaf · leaf-auditor</a>
+      <a href="https://github.com/Leaf-Global/leaf-auditor/tree/main/reference-docs/edge/reportes-auditoria"><span class="k">Doc</span>Reportes de auditoría de referencia</a>
+    </div>
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>Puesta en marcha (09/10–13/10).</b> El código se importó como repo el 09/10 (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/105c389"><code>105c389</code></a>), con el seed de EDGE dentro de <code>web/</code> para correrlo en el contenedor (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/399a070"><code>399a070</code></a>) y un schema propio de Postgres (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/89dfdaa"><code>89dfdaa</code></a>). Está en producción en Coolify desde el 13/10. Ese día se documentó el deploy (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/f2dab9c"><code>f2dab9c</code></a>) y, mientras no hubiera almacenamiento, la app pedía los documentos como enlace (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/cc2b2c3"><code>cc2b2c3</code></a>).</li>
+      <li><b>Reporte de auditoría (13/10).</b> El PDF se guarda en la base (migración <code>2_audit_report_pdf</code>), porque generarlo fallaba en Coolify al intentar subirlo a Supabase Storage (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/918cc9e"><code>918cc9e</code></a>). También se alineó la columna de estado de la tabla (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/db3a388"><code>db3a388</code></a>).</li>
+      <li><b>Pre-auditoría IA (13/10).</b> Si falla, la app muestra un mensaje claro en español según la causa, en lugar del error crudo de la API. El error original queda en los logs (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/69a9363"><code>69a9363</code></a>).</li>
+      <li><b>Vista del revisor (13/10).</b> El diálogo de auditoría muestra lo enviado en cada medida: los valores con sus etiquetas y los documentos. Además nombra el subproyecto, y los cambios de estado que fallan muestran un aviso (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/228ce77"><code>228ce77</code></a>). Se quitó la pista de puntaje que quedaba en el diálogo de nuevo subproyecto (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/c95d293"><code>c95d293</code></a>).</li>
+      <li><b>Documentos en Google Drive (14/10).</b> Se usa la misma cuenta de servicio que la Ops Platform. La app entrega los archivos después de verificar el acceso al proyecto, y al borrar un documento lo manda a la papelera de Drive. Los archivos anteriores siguen en Supabase Storage (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/35a2583"><code>35a2583</code></a>, <a href="https://github.com/Leaf-Global/leaf-auditor/commit/6bc647b"><code>6bc647b</code></a>).</li>
+      <li><b>Selección y progreso de medidas (14/10).</b> Al crear un proyecto o un subproyecto, solo quedan seleccionadas las medidas obligatorias, y el consultor marca las opcionales (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/f1df717"><code>f1df717</code></a>). El progreso del proyecto y del subproyecto cuenta solo las medidas seleccionadas (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/cd3dbe4"><code>cd3dbe4</code></a>).</li>
+      <li><b>Rondas de revisión (14/10).</b> La app pide confirmación antes de marcar una ronda REVIEWED con medidas sin auditar, y «Nueva Ronda» se deshabilita mientras la última ronda está en borrador o enviada (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/ea22ea7"><code>ea22ea7</code></a>). El banner del reporte cuenta las medidas sin auditar (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/3b2a0d5"><code>3b2a0d5</code></a>). El botón de logout ahora tiene etiqueta (<a href="https://github.com/Leaf-Global/leaf-auditor/commit/f38b46d"><code>f38b46d</code></a>).</li>
+    </ul>
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li>Activar las subidas a Drive en producción: sin la configuración de Drive en Coolify, la subida queda deshabilitada y la app pide enlaces. Configurarla según <code>DEPLOYMENT.md</code> §6 (ver <code>web/.env.example</code>), hacer el redeploy y probar una subida real.</li>
+      <li>Probar en producción el circuito completo con usuarios reales: el consultor documenta, corre la pre-auditoría y envía la ronda, y el revisor audita y genera el reporte. Incluir crear usuario y logout.</li>
+      <li>Agregar una UI para sumar miembros a un proyecto. Hoy solo el creador queda como miembro (el seed asigna los del proyecto de ejemplo), y un revisor solo ve los proyectos de los que es miembro.</li>
+      <li><code>data_schema</code> de EEM01: aceptar las 8 orientaciones de la calculadora EDGE, que el AI Consultor ya envía. Hoy solo hay <code>wwr_north</code>, <code>wwr_south</code>, <code>wwr_east</code> y <code>wwr_west</code>.</li>
+      <li>Validar con negocio en qué tipologías aplican EEM25, EEM27, EEM28 y WEM01 (<code>applicableTypes</code> en <code>edge-v3.json</code>).</li>
+      <li><code>FEEDBACK-BACKLOG.md</code> está desactualizado: en el código ya están editar y borrar proyectos y subproyectos, el cambio de etapa, el campo de tipo <code>url</code> y el conteo de estados en lugar de puntajes. Queda «campos condicionales» en los formularios de medida. Actualizar el archivo.</li>
+      <li><code>README.md</code> y <code>DEPLOYMENT.md</code> todavía describen Vercel como hosting (§2, §3 y §9 del deploy). El despliegue real es Coolify.</li>
+    </ul>
+    <h4>Para arrancar</h4>
+    <dl class="kv"><dt>Stack</dt><dd>Next.js 16.3.8 (App Router), React 19, shadcn/ui y Tailwind 4, Prisma 7 con PrismaPg (Postgres), NextAuth v5 con credenciales, <code>@anthropic-ai/sdk</code> (<code>claude-sonnet-4-5-20250929</code>), @react-pdf, Google Drive y Vitest (unos 96 tests). Node 22.</dd><dt>Despliegue</dt><dd>Coolify de Leaf, con Nixpacks, base <code>/web</code>, puerto 3000 y post-deploy <code>npx prisma migrate deploy</code>. Push a <code>main</code> despliega. La base es un Postgres compartido, con schema propio <code>leaf_auditor</code>.</dd><dt>En local</dt><dd>En <code>web/</code>: <code>npm install</code>, copiar <code>.env.example</code> a <code>.env</code>, <code>npx prisma generate</code>, <code>npx dotenv-cli -e .env -- npx prisma migrate deploy</code>, el seed (<code>npx dotenv-cli -e .env -- npx tsx prisma/seed.ts</code>) y <code>npm run dev</code>. <code>npm test</code> no necesita base ni <code>.env</code>.</dd></dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li>Migraciones con Prisma (<code>web/prisma/migrations/</code>). En una base que ya existía, primero se marca el baseline <code>0_init</code> como aplicado y después se corre <code>migrate deploy</code> (ver <code>DEPLOYMENT.md</code> §4). Los SQL de <code>web/prisma/legacy-sql/</code> son solo de referencia: no ejecutarlos.</li>
+      <li>La pre-auditoría corre en segundo plano con <code>after()</code>. La versión de Coolify de Leaf no tiene grace period, así que un redeploy puede cortarla. Un run sin avance por 15 min se marca fallido y se puede relanzar.</li>
+      <li>El límite de la IA (5 ejecuciones por usuario por hora) vive en memoria: es por instancia y se pierde cuando la app se reinicia.</li>
+      <li>Si falta <code>AUTH_URL</code>, el logout redirige a <code>localhost:3000</code>.</li>
+      <li>Drive no da URLs firmadas: la app sirve el archivo ella misma, y quien usa la app no necesita permisos en Drive. Los reportes PDF están en la base (<code>AuditReport.pdf</code>), salvo los generados antes del 13/10.</li>
+      <li>En Windows, algunas rutas de la API pasan el límite de largo de ruta (<code>Filename too long</code> al hacer checkout): clonar en una ruta corta o activar <code>core.longpaths</code>.</li>
+    </ul></div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li><a href="https://github.com/Leaf-Global/leaf-auditor/blob/main/README.md"><code>README.md</code></a>: stack, modelo de datos, medidas obligatorias por tipología y configuración local.</li>
+      <li><a href="https://github.com/Leaf-Global/leaf-auditor/blob/main/DEPLOYMENT.md"><code>DEPLOYMENT.md</code></a>: migraciones (§4), almacenamiento en Drive (§6) y el flujo de prueba por rol (§8).</li>
+      <li><a href="https://github.com/Leaf-Global/leaf-auditor/blob/main/FEEDBACK-BACKLOG.md"><code>FEEDBACK-BACKLOG.md</code></a>: el primer feedback del MVP. Casi todo ya está resuelto.</li>
+      <li><a href="https://github.com/Leaf-Global/leaf-auditor/tree/main/reference-docs/edge/reportes-auditoria"><code>reference-docs/edge/reportes-auditoria/</code></a>: 4 reportes reales de referencia, y la guía de auditor en <code>reference-docs/edge/Guidance-EDGE/</code>.</li>
+    </ul></div></details>
+  </div>
+</article>
+
+<article class="project leaf" id="p-consultor">
+  <div class="project-head">
+    <h3>AI Consultor <small class="muted">(repo consultor-ai-leaf)</small></h3>
+    <div class="tags"><span class="pill leaf">Leaf</span><span class="pill blue">En desarrollo</span></div>
+    <p>Herramienta de Leaf que genera los sustentos editables de cada medida de certificación (EDGE y LEED) a partir de los planos del cliente (DWG, DXF o PDF). Propone el marcado de capas <code>_LEAF_PROP_*</code>, el consultor lo corrige en un DWG de revisión, y la herramienta calcula (WWR, áreas, conteos de luminarias y griferías) y arma las láminas en formato Leaf (DWG + PDF, en inglés), que sube a Drive. Hoy es una CLI de tools deterministas, sin LLM, que opera un agente (Claude Code) siguiendo <code>workflows/</code>. Desde el 14/10 también se empaqueta como servicio HTTP para que lo llame la Ops Platform.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://tech.wearesiete.com/projects/45c99911-24d6-4c48-8588-03897a7cd6a4/tareas"><span class="k">PM</span>Tareas</a>
+      <a href="https://tech.wearesiete.com/companies/3d84c365-1db0-4fe0-8994-a02c943a82bb/documentos"><span class="k">PM</span>Bitácora (documentos de Leaf)</a>
+      <a href="https://github.com/Leaf-Global/consultor-ai-leaf"><span class="k">Repo</span>consultor-ai-leaf</a>
+      <a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/PENDIENTES.md"><span class="k">Doc</span>PENDIENTES.md (empezar acá)</a>
+      <a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/servicio/README.md"><span class="k">Doc</span>servicio/README.md</a>
+      <a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/reference/flujo-medida-ops-platform.md"><span class="k">Doc</span>Contrato con la Ops Platform</a>
+      <a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/workflows/setup.md"><span class="k">Doc</span>workflows/setup.md</a>
+      <a href="https://github.com/Leaf-Global/consultor-ai"><span class="k">Repo</span>consultor-ai (anterior, de César)</a>
+      <a href="https://console.cloud.google.com/home/dashboard?project=client-success-488316"><span class="k">GCP</span>client-success-488316</a>
+      <a href="https://drive.google.com/drive/folders/1TMnfCiUi09aMUgWfxpLWkSrrH_tUre8A"><span class="k">Drive</span>Carpeta de referencia de un proyecto Leaf</a>
+      <a href="https://github.com/storytold/cadcraft/releases"><span class="k">Tool</span>CADCraft (releases)</a>
+      <a href="https://github.com/storytold/cadcraft/issues/667"><span class="k">Tool</span>CADCraft #667 (MTEXT girados)</a>
+      <a href="https://app.leaflatam.com"><span class="k">Leaf</span>Ops Platform</a>
+    </div>
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>Marcado asistido (César, 11/10–12/10).</b> Clasificador de planos por disciplina, propuesta <code>_LEAF_PROP_*</code> por medida, confirmación con aprendizaje de huellas y láminas armadas dentro del CAD (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/a669bdb"><code>a669bdb</code></a>). El 12/10 cerró el flujo por medida con Drive: DWG + PDF en revisión y en final, y el paso «Generar PDF» (<code>--step pdf</code>) (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/17b60b1"><code>17b60b1</code></a>). También propone luminarias por tipo de bloque en EEM22 (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/c13dc08"><code>c13dc08</code></a>) y agrupa áreas internas por departamento (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/25b9638"><code>25b9638</code></a>).</li>
+      <li><b>Rendimiento (César, 11/10–12/10).</b> Achurados re-escalados antes de exportar: páginas de 8–45 min a unos 20 s (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/0e430cc"><code>0e430cc</code></a>). Lámina EEM01 del proyecto Central de 3:52 a 32 s (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/ec59980"><code>ec59980</code></a>). Aplanado de bloques sin explotar cada INSERT: de 390 a 80 s (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/18fc88d"><code>18fc88d</code></a>). PDF de revisión por agrupación espacial: WEM01 pasa de 38 a 5 páginas (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/a770d32"><code>a770d32</code></a>).</li>
+      <li><b>Láminas, fichas y Drive (Ilyra, 01/10–09/10).</b> Arreglos para correr en Windows (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/ea9069b"><code>ea9069b</code></a>) y láminas en formato EDGE con payload EEM01 de 8 orientaciones (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/196701c"><code>196701c</code></a>), el 01/10. LEED en inglés y subida a Drive sin duplicados, el 05/10 (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/431b879"><code>431b879</code></a>). Puente de fichas técnicas a láminas (<code>datasheet_values</code>), el 07/10 (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/778404f"><code>778404f</code></a>), validado el 09/10 con 3 fichas reales de luminarias (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/1eb0f8b"><code>1eb0f8b</code></a>). Manual de marcado en es/pt/en (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/84cb4fa"><code>84cb4fa</code></a>) y subida a Drive probada de punta a punta (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/2373fd2"><code>2373fd2</code></a>), el 09/10.</li>
+      <li><b>Integración del trabajo de César en Windows (Ilyra, 12/10).</b> Merge de <code>Leaf-Global/consultor-ai</code> hasta <code>c13dc08</code>, con UTF-8 en todos los tools, <code>msvcrt</code> en lugar de <code>fcntl</code> y exportación en secuencia (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/33051c8"><code>33051c8</code></a>, <a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/6b8c414"><code>6b8c414</code></a>). CADCraft lee y escribe DWG con <code>cadcraft-cli</code>, sin ODA, y PdfCraft hace el OCR de fichas escaneadas (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/3c9f4f2"><code>3c9f4f2</code></a>, <a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/031a986"><code>031a986</code></a>).</li>
+      <li><b>Pruebas con los DWG reales del proyecto Jerónimo (Ilyra, 06/10–13/10).</b> Primeros hallazgos (mapeo de documentos, elevaciones por separado), el 06/10 (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/eabfcb9"><code>eabfcb9</code></a>). Con los DWG convertidos por CADCraft, las áreas prácticamente coinciden con las láminas entregadas. Se corrigieron los MTEXT que CADCraft gira (<code>fix_mtext_rotation</code>) y se agregó un aviso por los OLE2FRAME que se pierden (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/0974f24"><code>0974f24</code></a>, 12/10). El 13/10 se hizo el ensayo con los planos base: <code>classify_plans</code> reconoce <code>II.EE</code>, <code>II.SS</code>, <code>II.GG</code> y <code>II.MM</code>, y se comprobó que EEM01, EEM22 y WEM01 proponen falsos positivos (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/096e7fb"><code>096e7fb</code></a>).</li>
+      <li><b>Ciclo completo con Drive en Windows (Ilyra, 14/10).</b> LOCATION_PLAN pasó por proponer → corrección en Drive → finalizar → pdf. Las láminas mantienen el plano de fondo en DWG ya trabajados por Leaf, hay menos falsos positivos (<code>NOT_KEYWORDS</code>) y se arregló el DWG de revisión que se perdía por ruta larga (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/1a80780"><code>1a80780</code></a>). Si no hay propuesta, el correo de revisión ahora dice «nada: hay que marcarlo a mano» (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/e8204fe"><code>e8204fe</code></a>).</li>
+      <li><b>El Consultor como servicio, paso 2 del deploy (Ilyra, 14/10).</b> Imagen Linux (Python 3.12 y <code>cadcraft-cli</code> 0.6.2, sin ODA) con una API FastAPI en <code>servicio/app.py</code>. Cada botón (proponer, finalizar, pdf) es un POST que encola el paso y devuelve 202, y <code>GET /api/consultor/jobs/{id}</code> da el resultado. <code>_drive.download_tree</code> baja los planos del cliente desde Drive. En Docker pasan las 3 suites (139 + 117 + 21), y por HTTP con Drive real corrieron LOCATION_PLAN e IRRIGATED_AREA con un plano sintético (<a href="https://github.com/Leaf-Global/consultor-ai-leaf/commit/fca1748"><code>fca1748</code></a>).</li>
+    </ul>
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li><b>Decisión de producto (14/10):</b> con los planos reales, la propuesta automática todavía da falsos positivos. Por eso, en la prueba con usuario el consultor marca a mano (o corrige) en el DWG de revisión y la herramienta calcula, arma la lámina y la sube a Drive. Falta elegir quién prueba (y quién tiene AutoCAD), el proyecto y las medidas, y armar la guía de una página para revisar el DWG con su hoja de feedback. Mientras no haya plataforma, alguien corre los pasos con Claude Code.</li>
+      <li>Abrir en AutoCAD los DWG que escribe CADCraft (los de revisión y final de LOCATION_PLAN ya están en Drive) antes de usarlos en entregas.</li>
+      <li>Paso 3 del deploy, a cargo de César y Jaime: agregar los botones y las llamadas en la Ops Platform, con el change de OpenSpec <code>consultor-procesar-medida</code>. Allá no hay nada hecho. Hay que definir dónde se despliega el servicio y cómo manda la plataforma los planos del cliente: hoy el servicio recibe <code>drive_folder_id</code>, pero la plataforma los guarda en su pool con <code>storage_file_id</code>.</li>
+      <li>Mejorar la propuesta automática con César: luminarias y aparatos dibujados como geometría suelta (por ejemplo, en <code>_LEAF IIEE</code>), EEM01 sin elevaciones dibujadas (marcó estacionamientos y un jardín como ventanas) y bloques sin nombre que siguen saliendo (<code>tetrewt-flat-2</code>, <code>A$C…</code>).</li>
+      <li>INTERNAL_AREAS: con el DWG real propone 24 grupos de 1 o 2 ambientes en lugar de 4 tipologías. Falta validar la reconstrucción desde muros contra el cuadro aprobado. Validar también con el equipo el conteo de WEM01 del Central.</li>
+      <li><code>classify_plans</code> no reconoce las carpetas por medida del Drive de Leaf (<code>EEM01_WWR</code>, <code>6. Internal Areas</code>): por ahora hay que poner la etiqueta en el nombre (<code>ELEV_</code>, <code>ARQ_</code>).</li>
+      <li>Verificar en AutoCAD si las luminarias de <code>Jerónimo_II.EE.dwg</code> son bloques: el DXF convertido trae 1743 ATTDEF sueltos.</li>
+      <li>Actualizar CADCraft a 0.7.0, que arregla los MTEXT girados (#667), y ver si <code>fix_mtext_rotation</code> deja de actuar.</li>
+      <li>En Linux no está Century Gothic, así que el nombre de la hoja sale en Liberation Sans.</li>
+      <li><code>datasheet_values</code>: validar con fichas reales de griferías, vidrio (con texto) y aislante. La ficha del vidrio de Jerónimo está escaneada.</li>
+      <li>En el AI Auditor, el <code>data_schema</code> de EEM01 tiene que aceptar las 8 orientaciones que el Consultor ya envía en <code>tracker_data</code> (hoy solo N/S/E/O).</li>
+    </ul>
+    <h4>Para arrancar</h4>
+    <dl class="kv"><dt>Stack</dt><dd>Python 3.12 con ezdxf, PyMuPDF, pdfplumber, pandas, shapely y google-api-python-client. CADCraft CLI 0.6.2 (DWG↔DXF) y PdfCraft (OCR). FastAPI para el servicio. Framework WAT: <code>workflows/</code> (SOPs) + <code>tools/</code> (scripts que reciben y devuelven JSON).</dd><dt>Despliegue</dt><dd>Todavía no está desplegado: corre en local, en Windows, y lo opera Claude Code. Desde el 14/10 hay imagen Docker (<code>Dockerfile</code> + <code>servicio/docker-compose.yml</code>) probada en Docker Desktop. Falta definir dónde se despliega.</dd><dt>En local</dt><dd>Seguir <code>workflows/setup.md</code>: venv fuera de OneDrive, <code>pip install -r requirements.txt</code>, copiar <code>.env.example</code> a <code>.env</code> y correr <code>python tests/test_tools.py</code> (139) y <code>python tests/test_marcado_asistido.py</code> (117). Para el servicio: <code>docker build -t consultor-ai .</code> y <code>docker compose up -d</code> en <code>servicio/</code> (ver su README).</dd></dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li>Correr una medida a la vez: un plano real de unos 100 MB en DXF ocupa 0,5–1 GB por proceso, y dos en paralelo dejaron la máquina sin memoria. En Windows, el PDF de revisión tarda unos 3 min por página grande.</li>
+      <li>Windows: el comando es <code>python</code>, no <code>python3</code>. Smart App Control bloquea DLLs (de ahí el pin <code>pandas==2.3.3</code>, fonttools sin binario y <code>disable_c_ext = 1</code> de ezdxf). Sin <code>LongPathsEnabled</code>, Python no ve los archivos con rutas de más de 260 caracteres.</li>
+      <li>Cada tool imprime un solo JSON por stdout. No usar <code>import fitz</code>: PyMuPDF imprime un aviso que rompe ese contrato.</li>
+      <li>La disciplina de cada plano sale de la etiqueta en el nombre (<code>ARQ_</code>, <code>ELEV_</code>, <code>IISS_</code>, <code>IIEE_</code>, <code>IIGG_</code>, <code>UBI_</code>), y si no hay, de la carpeta, el nombre o el contenido. Los planos del Drive de Leaf de Jerónimo ya vienen trabajados por Leaf (capas <code>_LEAF_*</code>): no son los originales del arquitecto.</li>
+      <li>ODA File Converter solo es gratis para uso no comercial y no se usa: CADCraft lee el DWG y escribe el final (AutoCAD 2018). Los OLE2FRAME no pasan al DWG. Las láminas salen en inglés (<code>lamina_lang: "es"</code> en <code>project.json</code> para español).</li>
+      <li>Servicio: un solo worker, con la cola en memoria. Si se reinicia, se pierden los trabajos pero no el estado de cada medida (vive en <code>projects/</code>). Lo aprendido del marcado se guarda en <code>data/huellas_aprendidas.json</code>. Todo lo del repo anterior de César ya está integrado aquí, hasta <code>c13dc08</code>.</li>
+    </ul></div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li><b><a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/PENDIENTES.md"><code>PENDIENTES.md</code></a></b>: bitácora y backlog, con lo más nuevo arriba (14/10).</li>
+      <li><a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/README.md"><code>README.md</code></a>, <a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/CLAUDE.md"><code>CLAUDE.md</code></a> y <a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/workflows/marcado_asistido.md"><code>workflows/marcado_asistido.md</code></a> (el flujo por medida).</li>
+      <li><a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/servicio/README.md"><code>servicio/README.md</code></a> y <a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/reference/flujo-medida-ops-platform.md"><code>reference/flujo-medida-ops-platform.md</code></a>: la API y el contrato con la plataforma.</li>
+      <li><a href="https://github.com/Leaf-Global/consultor-ai-leaf/blob/main/reference/convencion-capas-leaf.md"><code>reference/convencion-capas-leaf.md</code></a>: las capas <code>_LEAF_*</code>.</li>
+      <li>En el PM, los documentos de Leaf: la bitácora del AI Consultor del 01/10 al 13/10.</li>
+    </ul></div></details>
+  </div>
+</article>
+
+<article class="project leaf" id="p-n8n">
+  <div class="project-head">
+    <h3>Generación de Propuestas <small class="muted">(n8n de Leaf, sin repo)</small></h3>
+    <div class="tags"><span class="pill leaf">Leaf</span><span class="pill green">En producción</span></div>
+    <p>Flujo de n8n que arma las propuestas comerciales de Leaf a partir de un deal de HubSpot. Un webhook GET con <code>?deal_id=</code> dispara el workflow principal, que lee el deal, crea su carpeta en Drive y copia la propuesta y el resumen ejecutivo desde plantillas de Google Docs. Encuentra cada plantilla por su código <code>[SERVICIO-ETAPA-IDIOMA]</code>, reemplaza los marcadores <code>{{…}}</code> con los datos del deal, actualiza el deal y le deja una nota con el enlace. No tiene repo: la documentación de trabajo (handoff, fixes y rollback) se va a subir al Drive de Leaf.</p>
+  </div>
+  <div class="project-body">
+    <div class="links" data-filter>
+      <a href="https://n8n.leaflatam.com/workflow/hX3dGpHPwrZpT4dG"><span class="k">n8n</span>Generar Propuesta (principal)</a>
+      <a href="https://n8n.leaflatam.com/workflow/UvdpwcO8sUQznjCn"><span class="k">n8n</span>Reemplazar texto ES</a>
+      <a href="https://n8n.leaflatam.com/workflow/LG3sPBJdEgQDKhJc"><span class="k">n8n</span>Propuesta PT</a>
+      <a href="https://n8n.leaflatam.com/workflow/bAK5zNnWcmuhNGip"><span class="k">n8n</span>Resumen ejecutivo ES</a>
+      <a href="https://n8n.leaflatam.com/workflow/hbiJSovEf6KTkkuU"><span class="k">n8n</span>Resumen ejecutivo PT</a>
+      <a href="https://n8n.leaflatam.com/workflow/XHUPqk9uoEffadAd"><span class="k">n8n</span>Crear Folder</a>
+      <a href="https://n8n.leaflatam.com/workflow/JWjlaZmViElufRja"><span class="k">n8n</span>Conversión .docx → Google Doc (no re-ejecutar)</a>
+      <a href="https://n8n.leaflatam.com/workflow/6JqNj2Ix0M9ESpo8"><span class="k">n8n</span>Métricas Finanzas</a>
+      <a href="https://drive.google.com/drive/folders/1akgvkjrFS_60SvSOc9giQ-rYmJe58t0B"><span class="k">Drive</span>Editables - Automation (carpetas de deals)</a>
+      <a href="https://drive.google.com/drive/folders/15-Cu6pjWgn_e0Z39-7OK7McZ53SSbYUT"><span class="k">Drive</span>Temp. 2026 viejos (biblioteca en uso)</a>
+      <a href="https://drive.google.com/drive/folders/14IiXvzAWTHhXI5XkHTFSMzEMePYQzLSo"><span class="k">Drive</span>Rediseño 2026 (en pausa)</a>
+    </div>
+    <h4>Qué hicimos (01/10 → 14/10)</h4>
+    <ul>
+      <li><b>Diagnóstico (12/10).</b> Leaf movió las plantillas a «02.1. TEMPLATES PROPUESTAS COMERCIALES - REDISEÑO 2026», con 7 subcarpetas por servicio. El nodo de búsqueda seguía filtrando la carpeta anterior, cuya raíz quedó vacía, y el filtro de carpeta de n8n no es recursivo (<a href="https://n8n.leaflatam.com/workflow/UvdpwcO8sUQznjCn"><code>UvdpwcO8sUQznjCn</code></a>).</li>
+      <li><b>Búsqueda en el rediseño (13/10).</b> En <a href="https://n8n.leaflatam.com/workflow/UvdpwcO8sUQznjCn"><code>UvdpwcO8sUQznjCn</code></a> (propuesta) y <a href="https://n8n.leaflatam.com/workflow/bAK5zNnWcmuhNGip"><code>bAK5zNnWcmuhNGip</code></a> (resumen), el nodo <code>Search files and folders</code> pasó a una query con <code>in parents</code> por carpeta. En el resumen también se corrigió la query, que salía con comillas literales y sin <code>-ESPANOL</code>, así que nunca encontraba la plantilla.</li>
+      <li><b>LEED en <code>.docx</code> (13/10).</b> El flujo copiaba la plantilla, pero el reemplazo de la API de Docs no hace nada sobre un <code>.docx</code> y tampoco da error. El workflow de un solo uso <a href="https://n8n.leaflatam.com/workflow/JWjlaZmViElufRja"><code>JWjlaZmViElufRja</code></a> convirtió los 7 <code>.docx</code> de LEED a Google Doc, y las dos búsquedas ahora filtran por <code>mimeType</code> de Google Doc.</li>
+      <li><b>Prueba de punta a punta (14/10, ejecución 110214).</b> Con un deal LEED de prueba, la propuesta y el resumen salieron con los datos del deal. La prueba mostró gaps del formato nuevo: montos fijos en el resumen LEED, «Etapa» = <code>XXXX</code>, y <code>{{pisos}}</code> y <code>{{plazo_meses}}</code> sin reemplazar.</li>
+      <li><b>Vuelta a la biblioteca anterior (14/10).</b> Leaf pidió no usar todavía el formato nuevo. Las dos búsquedas apuntan a las 6 carpetas de «Temp. 2026 viejos» y conservan el filtro de Google Doc. En la ejecución 110472 no quedaron marcadores sin reemplazar y los montos del resumen cierran. Los gaps del formato nuevo quedan sin efecto.</li>
+      <li><b>Ajustes del 14/10.</b> Se agregó el marcador <code>{{cinco_consultoria}}</code> al nodo <code>Crear Replacements</code>, para el 12.º pago al 5 %. El resumen SITES se renombró a <code>[RESUMEN_EJECUTIVO-SITES-ESPANOL]</code>, porque antes el flujo no lo encontraba. En <a href="https://n8n.leaflatam.com/workflow/6JqNj2Ix0M9ESpo8">Métricas Finanzas</a>, el <code>pageId</code> de los nodos <code>Update metricas Q1/Q2/Q3</code> pasó a modo <code>id</code>. También se revisó el contenido de las plantillas BMS, FITWEL y AIS de la biblioteca anterior (ver abajo).</li>
+    </ul>
+    <h4>Qué falta para completarlo</h4>
+    <ul>
+      <li>En la <a href="https://docs.google.com/document/d/1ObsCwo6gf_U6ImUXTKOpdlOYlcP-eAjtFngXiF0arpM/edit">plantilla LEED DISEÑO</a>, cambiar <code>{{veinte_consultoria}}</code> por <code>{{cinco_consultoria}}</code> en la celda del 12.º pago: la etiqueta dice 5 %, pero el monto sale calculado al 20 %. El marcador ya existe en n8n. Revisar si la plantilla LEED O+M tiene el mismo error.</li>
+      <li>BMS: las plantillas existen pero no tienen código en el nombre, así que el flujo no las encuentra. Antes de ponérselo, hay que pasar a marcadores los montos de la propuesta (hoy son fijos). En el resumen, hay que pasar <code>{{pricing}}</code> a <code>{{pricing_registro}}</code> y <code>{{pricing_revision}}</code>, cambiar «Perú» por <code>{{pais}}</code> y quitar <code>{{grado}}</code>, que el flujo no reemplaza.</li>
+      <li>FITWEL y AIS no tienen plantilla usable en la biblioteca anterior: la de FITWEL es una propuesta real de un cliente, sin marcadores, y AIS no tiene carpeta. En el rediseño sí están armadas con marcadores. Falta decidir entre sumar a las búsquedas esas dos carpetas del rediseño, que no compiten con ninguna anterior, o que Leaf las redacte en el formato anterior.</li>
+      <li>Resumen SITES: el texto dice «EDGE» en 3 celdas y trae «Fase xx» literal.</li>
+      <li>Flujo PT: agregar la clave <code>leed o+m (existing buildings)</code> al mapa de servicios del nodo <code>Armar Código de busqueda1</code> de <a href="https://n8n.leaflatam.com/workflow/LG3sPBJdEgQDKhJc"><code>LG3sPBJdEgQDKhJc</code></a>. Hoy da un código vacío.</li>
+      <li>Si el deal no tiene pricing de auditoría, el resumen muestra «Costo de LEAF por Auditoría LEED USD$ 0.00».</li>
+      <li>Los deals de las ejecuciones 101546 y 101554 (21/09) quedaron sin propuesta, y esas ejecuciones ya se purgaron. Si todavía importan, hay que identificarlos en HubSpot y relanzarlos.</li>
+      <li>Revisar si algún deal BMS generó un resumen mientras el flujo apuntaba al rediseño (13/10–14/10): ese resumen era un documento fijo de otro cliente, sin marcadores.</li>
+      <li>Métricas Finanzas: <code>Update metricas Q4</code> sigue con una página fija de Notion.</li>
+      <li>Otros workflows de la instancia que fallaban al 21/09 y no se volvieron a revisar: Recepcionar Webhook Zoom, Error Notificación Slack, Actualizar carga de equipo (POOLING) 2.0, Zoom Análisis, Recepcionar Webhook de Hubspot y Registrar calificación en Sheet de Dashboard.</li>
+      <li>Si Leaf vuelve al rediseño, hay que restaurar las queries del rediseño (quedaron respaldadas en la documentación del 14/10) y dejar un solo Google Doc por código. Diseño de Leaf está reconvirtiendo plantillas en la carpeta BMS del rediseño.</li>
+      <li>Subir la documentación de trabajo al Drive de Leaf.</li>
+    </ul>
+    <h4>Para arrancar</h4>
+    <dl class="kv"><dt>Stack</dt><dd>n8n en <code>n8n.leaflatam.com</code> (proyecto «Generación de Propuestas»), HubSpot (deals y notas), Google Drive y Google Docs (copiar la plantilla y reemplazar el texto).</dd><dt>Despliegue</dt><dd>No hay repo ni CI: los cambios se hacen en el editor de n8n, directamente sobre los workflows de producción. El principal está activo y lo dispara el webhook.</dd><dt>En local</dt><dd>No aplica. Para probar, hay que lanzar una ejecución nueva con un deal de prueba (por ejemplo, <code>65740316072</code>, LEED en diseño) y revisar la carpeta que se crea en «Editables - Automation». Cada ejecución crea una carpeta nueva y una nota en el deal.</dd></dl>
+    <details><summary>Cosas a saber</summary><div class="inner"><ul>
+      <li>«Retry» no sirve para validar un cambio: reanuda desde el nodo que falló y reutiliza la salida vieja de los anteriores, incluida la búsqueda. Hay que lanzar una ejecución nueva.</li>
+      <li><code>JWjlaZmViElufRja</code> (conversión <code>.docx</code> → Google Doc) es de un solo uso: si se re-ejecuta tal cual, duplica las plantillas convertidas.</li>
+      <li>Solo sirven Google Docs: sobre un <code>.docx</code>, el reemplazo no hace nada y no da error. El <code>copy</code> de Drive no convierte. Tiene que haber un solo Google Doc por código; si hay dos, la búsqueda encuentra los dos.</li>
+      <li>La búsqueda usa una query con <code>in parents</code> por carpeta, porque el filtro de carpeta del nodo de Drive no es recursivo. Si además queda puesto «Filter → Folder», no encuentra nada.</li>
+      <li>Un marcador que no está en el mapa sale como llave cruda en el documento. El mapa tiene 25 marcadores para la propuesta (<code>Crear Replacements</code> de <code>UvdpwcO8sUQznjCn</code>) y 20 para el resumen (<code>Crear Replace JSON</code> de <code>bAK5zNnWcmuhNGip</code>).</li>
+      <li>Códigos: en español, <code>[SERVICIO-ETAPA-IDIOMA]</code>. LEED O+M se resuelve a <code>LEED-POST_CONSTRUCCION_OPERACION</code>. En EDGE solo hay DISENO y POST_CONSTRUCCION_OPERACION: un deal en construcción o sin etapa no encuentra plantilla y sale por «Aviso: propuesta no generada», que deja una nota con el motivo en HubSpot. El flujo PT busca <code>"Proposta " + código</code>, sin sufijo de idioma, y mezcla <code>POST_CONSTRUÇÃO_OPERAÇÃO</code> (LEED) con <code>POS_CONSTRUÇÃO_OPERAÇÃO</code> (EDGE).</li>
+    </ul></div></details>
+    <details><summary>Carpetas de plantillas en Drive</summary><div class="inner">
+      <div class="table-wrap"><table><thead><tr><th>Servicio</th><th>Biblioteca anterior (en uso desde el 14/10)</th><th>Rediseño 2026 (en pausa)</th></tr></thead><tbody>
+        <tr data-filter><td>AIS</td><td>No existe</td><td><a href="https://drive.google.com/drive/folders/1dUVPG1gAdJ-a6-PR4umfIS8m8nJN0jFZ">1dUVPG1g…</a></td></tr>
+        <tr data-filter><td>BMS</td><td><a href="https://drive.google.com/drive/folders/1yI17qDbAEx4BTtfE-HKyEOF5v5j5XudS">1yI17qDb…</a></td><td><a href="https://drive.google.com/drive/folders/1NI3PPCHiBOXgnWu-fqN75aW8n4BTUfzg">1NI3PPCH…</a></td></tr>
+        <tr data-filter><td>EDGE</td><td><a href="https://drive.google.com/drive/folders/17_mk56aBukyiAzgFn1v2OINQhUoSZKJ-">17_mk56a…</a></td><td><a href="https://drive.google.com/drive/folders/19uJSOfbg5LtoOeCkyRZqcKmNOIIcoiEk">19uJSOfb…</a></td></tr>
+        <tr data-filter><td>FITWEL</td><td><a href="https://drive.google.com/drive/folders/1OwuriHowmPsYFAQIK76-rCN3e6x6Gvrz">1OwuriHo…</a></td><td><a href="https://drive.google.com/drive/folders/1VxZIAUa1tIFteEAZKoq8tk5kJ36JZzaf">1VxZIAUa…</a></td></tr>
+        <tr data-filter><td>LEED</td><td><a href="https://drive.google.com/drive/folders/1Jsy3mIw06e2uxhPG330TQtCwbKEUddPV">1Jsy3mIw…</a></td><td><a href="https://drive.google.com/drive/folders/1ghsTw39TdkriFPgXtFGsG0hXwhvqXHQ0">1ghsTw39…</a></td></tr>
+        <tr data-filter><td>SITES</td><td><a href="https://drive.google.com/drive/folders/1h6WLH-UvozH5jOmetbwvds9MweESAi_2">1h6WLH-U…</a></td><td><a href="https://drive.google.com/drive/folders/1mybjwhyy7_SCKD_23zRJbJZJfpL2xjbi">1mybjwhy…</a></td></tr>
+        <tr data-filter><td>WELL</td><td><a href="https://drive.google.com/drive/folders/12d1JhanLpLPnLj5SQ1HeCtp6roYxEhi9">12d1Jhan…</a></td><td><a href="https://drive.google.com/drive/folders/1QgEVfRh6RLevBPv0UULnwQ0UH6nvUplB">1QgEVfRh…</a></td></tr>
+        <tr data-filter><td>Plantillas PT</td><td colspan="2"><a href="https://drive.google.com/drive/folders/1Pas1z2tVSrvsBC1eCKAaj9WsPfH4kt-D">1Pas1z2t…</a> («Templates portugues 2026»)</td></tr>
+      </tbody></table></div>
+    </div></details>
+    <details><summary>Lecturas recomendadas</summary><div class="inner"><ul>
+      <li>La documentación de trabajo, que se va a subir al Drive de Leaf:
+        <ul>
+          <li>El handoff del 21/09: los workflows, los arreglos de LEED O+M y del aviso a HubSpot, y los fallos de la instancia.</li>
+          <li>El fix de búsqueda de plantillas del 12/10: el diagnóstico, los cambios del 13/10 y la prueba de punta a punta.</li>
+          <li>El fix del 14/10: la vuelta a la biblioteca anterior, la cobertura real por servicio y la revisión de BMS, FITWEL y AIS.</li>
+          <li>El rollback del 12/10, con el plan de mover plantillas a la raíz. No quedó aplicado: las plantillas revisadas el 14/10 siguen en sus carpetas originales.</li>
+        </ul>
+      </li>
+      <li>En n8n, los nodos <code>Armar Código de busqueda1</code>, <code>Search files and folders</code> y <code>Crear Replacements</code> de <code>UvdpwcO8sUQznjCn</code>: ahí se arma el código, se busca la plantilla y se definen los marcadores.</li>
+    </ul></div></details>
+  </div>
+</article>
+</section>
+
+<section id="herramientas">
+  <h2>3. Herramientas y consolas</h2>
+  <p class="section-lead">Directorio de lo que usan estos proyectos. Para entrar a cada una, pide acceso con tu usuario.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Herramienta</th><th>Enlace</th><th>Para qué se usa</th></tr></thead>
+    <tbody>
+      <tr data-filter><td><b>PM Tech</b></td><td><a href="https://tech.wearesiete.com/portfolio">tech.wearesiete.com</a></td><td>Tablero de proyectos y tareas de Siete y Leaf: prioridades, fechas y responsables.</td></tr>
+      <tr data-filter><td><b>GitHub · Siete-Organization</b></td><td><a href="https://github.com/Siete-Organization">github.com/Siete-Organization</a></td><td>Repos de Siete: AI-SDR, reply_v2 (Outply), SDR-Response-Manager, marketing-ai-engine, siete-soporte, project-manager-tech, siete-academy, siete_back…</td></tr>
+      <tr data-filter><td><b>GitHub · Leaf-Global</b></td><td><a href="https://github.com/Leaf-Global">github.com/Leaf-Global</a></td><td>Repos de Leaf: consultor-ai-leaf, leaf-auditor y ops_platform.</td></tr>
+      <tr data-filter><td><b>Coolify · Siete</b></td><td><a href="https://coolify.wearesiete.com/projects">coolify.wearesiete.com</a></td><td>Despliegue de las apps de Siete: AI SDR, Outply, SDR Response Manager, Marketing AI Engine, Siete Academy, Siete Back, Ops Platform, Dashboard Performance…</td></tr>
+      <tr data-filter><td><b>Coolify · Leaf</b></td><td><a href="https://coolify.leaflatam.com/projects">coolify.leaflatam.com</a></td><td>leaf-auditor, Ops Platform, leaf_back y otros servicios de Leaf.</td></tr>
+      <tr data-filter><td><b>Hetzner Cloud</b></td><td><a href="https://console.hetzner.cloud/">console.hetzner.cloud</a></td><td>El servidor donde corre Coolify de Siete y las bases compartidas.</td></tr>
+      <tr data-filter><td><b>Firebase</b></td><td><a href="https://console.firebase.google.com/project/auth-siete/overview">auth-siete</a> · <a href="https://console.firebase.google.com/project/outply-siete/overview">outply-siete</a> · <a href="https://console.firebase.google.com/project/auth-academy-staging/overview">auth-academy-staging</a> · <a href="https://console.firebase.google.com/project/login-25bd4/overview">login-25bd4</a></td><td>Login de las apps: <code>auth-siete</code> (AISDR y PM Tech), <code>outply-siete</code> (Outply), <code>auth-academy-staging</code> (Siete Academy en producción) y <code>login-25bd4</code> (apps de sheet).</td></tr>
+      <tr data-filter><td><b>Google Cloud</b></td><td><a href="https://console.cloud.google.com/home/dashboard?project=nice-pen-461800-k3">nice-pen-461800-k3</a> · <a href="https://console.cloud.google.com/home/dashboard?project=outply-siete">outply-siete</a> · <a href="https://console.cloud.google.com/home/dashboard?project=client-success-488316">client-success-488316</a></td><td>OAuth de Gmail y Pub/Sub de Response Manager, OAuth de Outply y la cuenta de servicio de Drive de AI Consultor (Leaf).</td></tr>
+      <tr data-filter><td><b>Microsoft Azure</b></td><td><a href="https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade">App registrations</a></td><td>OAuth de Outlook y Microsoft Graph para Response Manager y Outply.</td></tr>
+      <tr data-filter><td><b>Sentry</b></td><td><a href="https://siete.sentry.io/">siete.sentry.io</a> · <a href="https://leaf-6i.sentry.io/">leaf-6i.sentry.io</a></td><td>Errores de Outply (<code>siete</code>) y del front de Response Manager (<code>leaf-6i</code>).</td></tr>
+      <tr data-filter><td><b>Anthropic · OpenAI</b></td><td><a href="https://console.anthropic.com/">console.anthropic.com</a> · <a href="https://platform.openai.com/">platform.openai.com</a></td><td>Los modelos de IA que usan las apps: Claude en siete-soporte, AI Auditor, Marketing AI y Response Manager; OpenAI en AISDR, Response Manager y Marketing AI.</td></tr>
+      <tr data-filter><td><b>Slack</b></td><td><a href="https://app.slack.com/">app.slack.com</a></td><td>Alertas: <code>#aisdr-alerts</code> (también Response Manager), <code>#aisdr-comercial</code>, <code>#test-alerts</code> y el reporte diario de Outply.</td></tr>
+      <tr data-filter><td><b>n8n</b></td><td><a href="https://n8n.leaflatam.com">n8n.leaflatam.com</a> · <a href="https://n8n.wearesiete.com">n8n.wearesiete.com</a></td><td>Automatizaciones: Generación de Propuestas de Leaf y webhooks de Siete.</td></tr>
+      <tr data-filter><td><b>GoDaddy</b></td><td><a href="https://dcc.godaddy.com/">dcc.godaddy.com</a></td><td>DNS de <code>wearesiete.com</code>. Cada cambio pide verificación por SMS.</td></tr>
+      <tr data-filter><td><b>Mailivery</b></td><td><a href="https://app.mailivery.io">app.mailivery.io</a></td><td>Calentamiento de buzones de Outply (pausado desde el 09/10).</td></tr>
+      <tr data-filter><td><b>Apollo · ZeroBounce · Reply.io</b></td><td><a href="https://app.apollo.io">Apollo</a> · <a href="https://www.zerobounce.net/members/">ZeroBounce</a> · <a href="https://run.reply.io">Reply.io</a></td><td>Pipeline de AISDR: búsqueda de contactos, validación de emails y secuencias (Reply.io va siendo reemplazado por Outply).</td></tr>
+      <tr data-filter><td><b>Webflow · HeyGen · Canva · Figma</b></td><td><a href="https://webflow.com/dashboard">Webflow</a> · <a href="https://app.heygen.com">HeyGen</a> · <a href="https://www.canva.com/">Canva</a> · <a href="https://www.figma.com/">Figma</a></td><td>Integraciones de Marketing AI Engine (publicación, videos con avatar y plantillas) y videos de Siete Academy.</td></tr>
+      <tr data-filter><td><b>Resend</b></td><td><a href="https://resend.com/">resend.com</a></td><td>Correo transaccional del PM Tech, Marketing AI y Siete Academy.</td></tr>
+      <tr data-filter><td><b>Google Drive</b></td><td><a href="https://drive.google.com/">drive.google.com</a></td><td>Plantillas de propuestas de Leaf, carpetas de proyectos de AI Consultor y archivos de AI Auditor.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="personas">
+  <h2>4. Personas</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Persona</th><th>Con qué te puede ayudar</th><th>Contacto</th></tr></thead>
+    <tbody>
+      <tr data-filter><td><b>Jaime Koochoy</b></td><td>Responsable de Tech de Siete. Lleva Outply, AISDR y el PM Tech, y define las prioridades del tablero. Es tu primer punto de contacto.</td><td><code>jaime@wearesiete.com</code> · GitHub <code>koochoy97</code></td></tr>
+      <tr data-filter><td><b>César Granda</b></td><td>Cofundador de Leaf. Trabaja en AI Consultor (coautor del código) y es la referencia de negocio para AI Auditor y las propuestas de Leaf.</td><td>GitHub <code>cesarg777</code></td></tr>
+      <tr data-filter><td><b>Diseñadora de marketing</b></td><td>Valida la calidad de imagen y la dirección de arte en Marketing AI Engine. Jaime te la presenta.</td><td>—</td></tr>
+      <tr data-filter><td><b>TAC Security</b></td><td>Evaluador externo del assessment CASA de Response Manager (verificación de Google).</td><td>Portal del assessment (ver <code>docs/casa/</code> del repo)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="primeros-pasos">
+  <h2>5. Primeros pasos</h2>
+  <p class="section-lead">Para ganar contexto antes de tocar producción. Qué atacar primero lo define el tablero PM Tech junto con Jaime.</p>
+  <ol class="steps">
+    <li><b>Accesos.</b> Pide usuario en GitHub (las dos orgs), PM Tech, Coolify de Siete y de Leaf, las consolas de Firebase y Google Cloud de la <a href="#herramientas">sección 3</a> y los canales de Slack.</li>
+    <li><b>Recorrido con Jaime por el tablero.</b> Repasen juntos los proyectos de la <a href="#resumen">sección 2</a> y acuerden por dónde empezar.</li>
+    <li><b>Lee las fichas</b> de los proyectos que vas a tomar, empezando por «Qué falta para completarlo» y las lecturas recomendadas de cada repo.</li>
+    <li><b>Levanta cada repo en local</b> siguiendo su README o RUNBOOK, y corre los tests. Cada ficha resume cómo hacerlo en «Para arrancar».</li>
+    <li><b>Recorre producción y Coolify</b> de cada app: la URL pública, los logs del último deploy y, si tiene, Sentry.</li>
+    <li><b>Tu primer cambio</b>: algo chico por rama y PR, para conocer el CI y el flujo de despliegue de ese repo antes de tomar algo grande.</li>
+  </ol>
+</section>
+
+<section id="convenciones">
+  <h2>6. Convenciones y glosario</h2>
+  <div class="grid2">
+    <div class="tile"><h4>Convenciones del equipo</h4><ul>
+      <li><b>Push a <code>main</code> = deploy</b> en casi todos los repos. En Siete Academy, en cambio, un merge desde la UI de GitHub no dispara el deploy (<code>docs/DEPLOY_COOLIFY.md</code>). Confírmalo en cada repo antes de mergear.</li>
+      <li>No encender flags visibles para usuarios de lunes a viernes de 09:00 a 12:00, hora de Lima.</li>
+      <li>Commits y PRs en español, en el estilo <code>tipo(área): qué cambia</code> (Marketing AI está en inglés).</li>
+      <li>Varios repos tienen un <code>CLAUDE.md</code> con sus reglas, y usan <code>openspec/</code> para especificar cambios antes de programarlos.</li>
+      <li>Las variables <code>VITE_*</code> y <code>NEXT_PUBLIC_*</code> se fijan en el build: si cambian, hay que reconstruir.</li>
+      <li><code>ENCRYPTION_KEY</code> (Outply y Response Manager) tiene que mantenerse fija: si cambia, los buzones guardados quedan ilegibles.</li>
+      <li>En siete-soporte, fin de línea LF (<code>.gitattributes</code>): con CRLF no arranca el entrypoint.</li>
+    </ul></div>
+    <div class="tile"><h4>Glosario</h4><ul>
+      <li><b>PM Tech</b>: el tablero interno. Fases: No comenzado → En desarrollo → Feedback loop → Culminado.</li>
+      <li><b>Feedback loop</b>: el proyecto ya está en uso y se ajusta con lo que dicen los usuarios.</li>
+      <li><b>CASA</b>: Cloud Application Security Assessment, la evaluación que Google exige para apps con scopes restringidos de Gmail. La hace TAC Security.</li>
+      <li><b>WAT</b>: el framework Workflows / Agents / Tools que usan varios repos (ver su <code>CLAUDE.md</code>).</li>
+      <li><b>Railway Pattern</b>: resultados <code>Ok</code>/<code>Err</code> en lugar de excepciones (Outply).</li>
+      <li><b>Dosificador</b>: la parte de Outply que reparte los envíos del día entre bandejas, dominios y campañas.</li>
+      <li><b>EDGE / LEED / WELL / SITES</b>: certificaciones de sostenibilidad que gestiona Leaf. EEM y WEM son medidas de energía y agua de EDGE.</li>
+      <li><b>Pase</b>: el token corto que emite siete-soporte para que el widget sepa qué usuario de qué app escribe.</li>
+    </ul></div>
+  </div>
+</section>
+
+<div class="footer">
+  <p>Entrega de rol · AI &amp; Tech · Siete y Leaf · v2.0 · 14/10/2026.</p>
+  <p>La estructura sigue la norma ISO 9001:2015 §7.1.6 (conocimientos de la organización) e ISO 30401:2018 (transferencia de conocimiento): qué se hizo, qué falta, dónde está y quién sabe. Para actualizarlo, edita <code>index.html</code> en el repo <a href="https://github.com/Siete-Organization/entrega-de-rol-tecnologia">entrega-de-rol-tecnologia</a> y abre un PR.</p>
+  <p>Versiones: 1.0 (14/10/2026) acta inicial · 2.0 (14/10/2026) reenfocada como guía de incorporación: trabajo del 01 al 14/10 y lo que falta por proyecto.</p>
+</div>
+
+</main>
+</div>
+
+<script>
+(function () {
+  var store = {
+    get: function (k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { window.localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  // Tema: auto -> oscuro -> claro
+  var root = document.documentElement;
+  var saved = store.get('entrega:theme');
+  if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  var themeBtn = document.getElementById('themeBtn');
+  function themeLabel() {
+    var t = root.getAttribute('data-theme');
+    themeBtn.textContent = t === 'dark' ? 'Tema: oscuro' : t === 'light' ? 'Tema: claro' : 'Tema: auto';
+  }
+  themeLabel();
+  themeBtn.addEventListener('click', function () {
+    var t = root.getAttribute('data-theme');
+    var next = !t ? 'dark' : t === 'dark' ? 'light' : '';
+    if (next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
+    store.set('entrega:theme', next);
+    themeLabel();
+  });
+
+  // Expandir / contraer todos los <details>
+  var expandBtn = document.getElementById('expandBtn');
+  var expanded = false;
+  expandBtn.addEventListener('click', function () {
+    expanded = !expanded;
+    document.querySelectorAll('details').forEach(function (d) { d.open = expanded; });
+    expandBtn.textContent = expanded ? 'Contraer todo' : 'Expandir todo';
+  });
+  window.addEventListener('beforeprint', function () {
+    document.querySelectorAll('details').forEach(function (d) { d.open = true; });
+  });
+
+  // Filtro de tablas y enlaces
+  var q = document.getElementById('q');
+  var items = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+  function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  var qHint = document.getElementById('qHint');
+  var qHintDefault = qHint.textContent;
+  q.addEventListener('input', function () {
+    var term = norm(q.value.trim());
+    var hits = 0;
+    items.forEach(function (el) {
+      if (el.classList.contains('links')) {
+        Array.prototype.forEach.call(el.children, function (a) {
+          var miss = !!term && norm(a.textContent + ' ' + (a.getAttribute('href') || '')).indexOf(term) === -1;
+          a.classList.toggle('hidden-by-filter', miss);
+          if (term && !miss) hits++;
+        });
+      } else {
+        var hay = norm(el.textContent + ' ' + Array.prototype.map.call(el.querySelectorAll('a'), function (a) { return a.getAttribute('href'); }).join(' '));
+        var miss2 = !!term && hay.indexOf(term) === -1;
+        el.classList.toggle('hidden-by-filter', miss2);
+        if (term && !miss2) hits++;
+      }
+    });
+    qHint.textContent = term ? hits + ' coincidencias entre enlaces y filas de tablas. Borra el texto para ver todo.' : qHintDefault;
+  });
+
+  // Índice activo según la sección visible
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var targets = tocLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          tocLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+        }
+      });
+    }, { rootMargin: '-10% 0px -80% 0px' });
+    targets.forEach(function (t) { obs.observe(t); });
+  }
+
+  // Navegación móvil
+  var sel = document.getElementById('mobileNav');
+  tocLinks.forEach(function (a) {
+    var o = document.createElement('option');
+    o.value = a.getAttribute('href');
+    o.textContent = (a.parentElement.classList.contains('sub') ? '— ' : '') + a.textContent;
+    sel.appendChild(o);
+  });
+  sel.addEventListener('change', function () { location.hash = sel.value; });
+})();
+</script>
+</body>
+</html>
